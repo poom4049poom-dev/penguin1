@@ -1,0 +1,3356 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>👁️ Ghost Quiz</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#050509;
+    --panel:#0d0d16;
+    --panel2:#151522;
+    --border:#292938;
+
+    --red:#ef4444;
+    --purple:#8b5cf6;
+
+    --text:#f8fafc;
+    --muted:#8d8da0;
+}
+
+html{
+    background:#050509;
+}
+
+body{
+    min-height:100vh;
+
+    color:var(--text);
+
+    font-family:
+        Arial,
+        "Noto Sans Thai",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #35113d 0%,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 10% 80%,
+            #24101d 0%,
+            transparent 30%
+        ),
+        #050509;
+
+    overflow-x:hidden;
+}
+
+
+/* =====================================================
+   BACKGROUND FOG
+===================================================== */
+
+.fog{
+    position:fixed;
+
+    inset:-20%;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+    opacity:.28;
+
+    background:
+        radial-gradient(
+            ellipse at 30% 50%,
+            #aaa 0%,
+            transparent 30%
+        ),
+        radial-gradient(
+            ellipse at 70% 60%,
+            #777 0%,
+            transparent 25%
+        );
+
+    filter:blur(55px);
+
+    animation:
+        fogMove 18s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes fogMove{
+
+    from{
+        transform:
+            translateX(-5%)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translateX(8%)
+            scale(1.15);
+    }
+}
+
+
+/* =====================================================
+   NOISE
+===================================================== */
+
+.noise{
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:999;
+
+    opacity:.045;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+
+/* =====================================================
+   SCREEN FLASH
+===================================================== */
+
+.screen-flash{
+    position:fixed;
+
+    inset:0;
+
+    background:#ff0000;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:998;
+}
+
+.screen-flash.active{
+    animation:
+        flash
+        .25s;
+}
+
+@keyframes flash{
+
+    0%{
+        opacity:0;
+    }
+
+    40%{
+        opacity:.13;
+    }
+
+    100%{
+        opacity:0;
+    }
+
+}
+
+
+/* =====================================================
+   NAV
+===================================================== */
+
+nav{
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    background:#050509dd;
+
+    border-bottom:
+        1px solid
+        #ffffff0d;
+
+    backdrop-filter:
+        blur(15px);
+
+    position:relative;
+
+    z-index:10;
+}
+
+.logo{
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    color:#eee;
+
+    text-shadow:
+        0 0 20px
+        #ef444455;
+}
+
+.logo span{
+    color:#ef4444;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    width:min(900px,92%);
+
+    margin:auto;
+
+    padding:50px 0;
+}
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+    min-height:
+        calc(100vh - 70px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+.ghost-symbol{
+    font-size:120px;
+
+    margin-bottom:20px;
+
+    filter:
+        drop-shadow(
+            0 0 35px
+            #ef4444
+        );
+
+    animation:
+        float
+        3s
+        ease-in-out
+        infinite;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:
+            translateY(0);
+    }
+
+    50%{
+        transform:
+            translateY(-12px);
+    }
+
+}
+
+h1{
+    font-size:
+        clamp(
+            42px,
+            8vw,
+            75px
+        );
+
+    margin-bottom:15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #ef4444,
+            #a78bfa
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+}
+
+.intro p{
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:17px;
+}
+
+.intro b{
+    color:#eee;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.btn{
+    border:0;
+
+    padding:
+        14px
+        25px;
+
+    border-radius:12px;
+
+    margin-top:28px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #7c3aed
+        );
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.2s;
+
+    box-shadow:
+        0 0 0
+        transparent;
+}
+
+.btn:hover{
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 15px 40px
+        #ef444455;
+}
+
+.btn:active{
+
+    transform:
+        scale(.97);
+}
+
+
+/* =====================================================
+   QUIZ BOX
+===================================================== */
+
+.quiz-box{
+
+    background:
+        linear-gradient(
+            145deg,
+            #11111c,
+            #08080e
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:25px;
+
+    padding:30px;
+
+    box-shadow:
+        0 30px 80px
+        #0008;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.quiz-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            #ef444408,
+            transparent
+        );
+
+    animation:
+        scan
+        6s
+        linear
+        infinite;
+}
+
+@keyframes scan{
+
+    from{
+        transform:
+            translateX(-100%);
+    }
+
+    to{
+        transform:
+            translateX(100%);
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-info{
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    color:
+        var(--muted);
+
+    margin-bottom:
+        10px;
+
+    font-size:
+        14px;
+}
+
+.progress{
+
+    height:8px;
+
+    background:
+        #1d1d2b;
+
+    border-radius:
+        20px;
+
+    overflow:
+        hidden;
+
+    margin-bottom:
+        35px;
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #8b5cf6
+        );
+
+    transition:
+        .4s;
+
+    box-shadow:
+        0 0 15px
+        #ef4444;
+}
+
+
+/* =====================================================
+   QUESTION
+===================================================== */
+
+.question-number{
+
+    color:
+        #ef4444;
+
+    font-size:
+        14px;
+
+    margin-bottom:
+        12px;
+
+    letter-spacing:
+        2px;
+}
+
+.question{
+
+    font-size:
+        30px;
+
+    line-height:
+        1.4;
+
+    margin-bottom:
+        25px;
+}
+
+
+/* =====================================================
+   ANSWERS
+===================================================== */
+
+.answers{
+
+    display:grid;
+
+    gap:12px;
+}
+
+.answer{
+
+    width:100%;
+
+    text-align:left;
+
+    padding:18px;
+
+    border-radius:
+        14px;
+
+    border:
+        1px solid
+        #292938;
+
+    background:
+        #11111b;
+
+    color:#ddd;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.2s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.answer::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:3px;
+
+    background:
+        #ef4444;
+
+    transform:
+        scaleY(0);
+
+    transition:.2s;
+}
+
+.answer:hover{
+
+    border-color:
+        #ef4444;
+
+    background:
+        #241219;
+
+    transform:
+        translateX(5px);
+
+    box-shadow:
+        0 5px 25px
+        #ef444422;
+}
+
+.answer:hover::before{
+
+    transform:
+        scaleY(1);
+}
+
+
+/* =====================================================
+   GLITCH
+===================================================== */
+
+.glitch{
+
+    animation:
+        glitch
+        .18s
+        linear;
+}
+
+@keyframes glitch{
+
+    0%{
+        transform:
+            translate(0);
+    }
+
+    25%{
+        transform:
+            translate(-5px,2px);
+
+        filter:
+            hue-rotate(20deg);
+    }
+
+    50%{
+        transform:
+            translate(5px,-2px);
+    }
+
+    75%{
+        transform:
+            translate(-3px,1px);
+    }
+
+    100%{
+        transform:
+            translate(0);
+    }
+
+}
+
+
+/* =====================================================
+   FINAL SCREEN
+===================================================== */
+
+.final-warning{
+
+    text-align:center;
+
+    padding:
+        70px
+        20px;
+}
+
+.final-warning .skull{
+
+    font-size:
+        100px;
+
+    animation:
+        pulse
+        1s
+        infinite;
+
+    filter:
+        drop-shadow(
+            0 0 30px
+            #ef4444
+        );
+}
+
+@keyframes pulse{
+
+    50%{
+
+        transform:
+            scale(1.08);
+
+        filter:
+            drop-shadow(
+                0 0 40px
+                red
+            );
+    }
+
+}
+
+
+/* =====================================================
+   GHOST POPUP
+===================================================== */
+
+.ghost-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    z-index:900;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 20%,
+            #000b 80%,
+            #000 100%
+        );
+
+    transition:
+        opacity .3s;
+}
+
+.ghost-popup.show{
+
+    opacity:1;
+}
+
+
+/* =====================================================
+   GHOST FIGURE
+===================================================== */
+
+.ghost-figure{
+
+    position:relative;
+
+    width:240px;
+
+    height:520px;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            #fff3
+        )
+        drop-shadow(
+            0 0 60px
+            #ef444455
+        );
+
+    animation:
+        ghostAppear
+        2.5s
+        ease-out
+        forwards;
+}
+
+.ghost-head{
+
+    position:absolute;
+
+    width:155px;
+
+    height:170px;
+
+    left:42px;
+
+    top:20px;
+
+    border-radius:
+        50%
+        50%
+        45%
+        45%;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 40%,
+            #eee 0%,
+            #aaa 35%,
+            #555 70%,
+            #111 100%
+        );
+
+    box-shadow:
+        inset
+        -20px -20px 40px
+        #0008,
+
+        inset
+        10px 10px 25px
+        #fff5;
+}
+
+.ghost-head::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:35px;
+
+    height:65px;
+
+    left:20px;
+
+    top:80px;
+
+    background:#111;
+
+    border-radius:50%;
+
+    transform:
+        rotate(15deg);
+
+    filter:
+        blur(3px);
+}
+
+.ghost-head::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:35px;
+
+    height:65px;
+
+    right:20px;
+
+    top:80px;
+
+    background:#111;
+
+    border-radius:50%;
+
+    transform:
+        rotate(-15deg);
+
+    filter:
+        blur(3px);
+}
+
+
+/* EYES */
+
+.ghost-eye{
+
+    position:absolute;
+
+    width:18px;
+
+    height:30px;
+
+    top:65px;
+
+    background:#050505;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 12px #000;
+}
+
+.ghost-eye.left{
+    left:42px;
+}
+
+.ghost-eye.right{
+    right:42px;
+}
+
+.ghost-eye::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:5px;
+
+    height:8px;
+
+    background:#ff3333;
+
+    border-radius:50%;
+
+    left:6px;
+
+    top:13px;
+
+    box-shadow:
+        0 0 10px
+        red;
+}
+
+
+/* BODY */
+
+.ghost-body{
+
+    position:absolute;
+
+    left:10px;
+
+    top:140px;
+
+    width:220px;
+
+    height:350px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ddd 20%,
+            #999 50%,
+            #555 75%,
+            transparent
+        );
+
+    border-radius:
+        45%
+        45%
+        20%
+        20%;
+
+    opacity:.85;
+
+    filter:
+        blur(.5px);
+
+    clip-path:
+        polygon(
+            25% 0,
+            75% 0,
+            90% 30%,
+            100% 100%,
+            82% 92%,
+            65% 100%,
+            50% 90%,
+            35% 100%,
+            18% 92%,
+            0 100%,
+            10% 30%
+        );
+}
+
+
+/* ARMS */
+
+.ghost-arm{
+
+    position:absolute;
+
+    width:55px;
+
+    height:190px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #bbb,
+            #555
+        );
+
+    border-radius:50%;
+
+    top:40px;
+
+    opacity:.8;
+}
+
+.left-arm{
+
+    left:-25px;
+
+    transform:
+        rotate(25deg);
+}
+
+.right-arm{
+
+    right:-25px;
+
+    transform:
+        rotate(-25deg);
+}
+
+
+/* TAIL */
+
+.ghost-tail{
+
+    position:absolute;
+
+    bottom:-5px;
+
+    left:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:
+        space-around;
+}
+
+.ghost-tail span{
+
+    display:block;
+
+    width:55px;
+
+    height:80px;
+
+    background:
+        linear-gradient(
+            #888,
+            transparent
+        );
+
+    border-radius:
+        0 0
+        50% 50%;
+}
+
+
+/* GHOST APPEAR */
+
+@keyframes ghostAppear{
+
+    0%{
+
+        transform:
+            translateY(300px)
+            scale(.3);
+
+        opacity:0;
+
+        filter:
+            blur(20px)
+            brightness(.2);
+    }
+
+    50%{
+        opacity:.7;
+    }
+
+    100%{
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity:.92;
+
+        filter:
+            blur(1px)
+            brightness(.8);
+    }
+
+}
+
+
+/* =====================================================
+   JUMPSCARE
+===================================================== */
+
+#jumpscare{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    background:
+        radial-gradient(
+            circle,
+            #4b0000,
+            #050000 70%
+        );
+
+    cursor:pointer;
+}
+
+#jumpscare.active{
+
+    display:flex;
+
+    animation:
+        scareShake
+        .08s
+        infinite;
+}
+
+
+/* FACE */
+
+.scary-face{
+
+    width:300px;
+
+    height:400px;
+
+    position:relative;
+
+    border-radius:
+        50%
+        50%
+        45%
+        45%;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 35%,
+            #ddd 0%,
+            #777 30%,
+            #222 65%,
+            #000 100%
+        );
+
+    box-shadow:
+        0 0 80px
+        #ff000088;
+
+    animation:
+        faceZoom
+        .8s
+        forwards;
+}
+
+
+/* EYES */
+
+.eye{
+
+    position:absolute;
+
+    top:125px;
+
+    width:55px;
+
+    height:75px;
+
+    background:#000;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 20px
+        #ff0000;
+}
+
+.eye::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+
+    height:25px;
+
+    background:red;
+
+    border-radius:50%;
+
+    left:19px;
+
+    top:25px;
+
+    box-shadow:
+        0 0 20px
+        red;
+}
+
+.eye1{
+
+    left:55px;
+
+    transform:
+        rotate(8deg);
+}
+
+.eye2{
+
+    right:55px;
+
+    transform:
+        rotate(-8deg);
+}
+
+
+/* MOUTH */
+
+.mouth{
+
+    position:absolute;
+
+    left:65px;
+
+    right:65px;
+
+    bottom:65px;
+
+    height:90px;
+
+    background:#050505;
+
+    border-radius:
+        10px
+        10px
+        50%
+        50%;
+
+    box-shadow:
+        inset
+        0 0 20px
+        #ff000044;
+}
+
+.mouth::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:15px;
+
+    left:15px;
+
+    right:15px;
+
+    height:3px;
+
+    background:#eee;
+
+    box-shadow:
+        0 15px #eee,
+        0 30px #eee;
+}
+
+
+/* TEXT */
+
+.scare-text{
+
+    margin-top:30px;
+
+    color:#ff3333;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    text-shadow:
+        0 0 20px
+        red;
+
+    animation:
+        textGlitch
+        .15s
+        infinite;
+}
+
+
+/* JUMPSCARE ANIMATION */
+
+@keyframes faceZoom{
+
+    from{
+
+        transform:
+            scale(.2);
+
+        opacity:0;
+    }
+
+    to{
+
+        transform:
+            scale(1.3);
+
+        opacity:1;
+    }
+
+}
+
+@keyframes scareShake{
+
+    0%{
+        transform:
+            translate(0);
+    }
+
+    25%{
+        transform:
+            translate(-10px,5px);
+    }
+
+    50%{
+        transform:
+            translate(10px,-5px);
+    }
+
+    75%{
+        transform:
+            translate(-5px,-10px);
+    }
+
+    100%{
+        transform:
+            translate(5px,10px);
+    }
+
+}
+
+@keyframes textGlitch{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.3;
+    }
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+.result{
+
+    text-align:center;
+}
+
+.result-card{
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #15121d,
+            #08080d
+        );
+
+    border:
+        1px solid
+        #3c273d;
+
+    border-radius:
+        25px;
+
+    box-shadow:
+        0 30px 100px
+        #000b;
+}
+
+.result-image{
+
+    height:420px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#000;
+}
+
+.result-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    filter:
+        brightness(.45)
+        contrast(1.4)
+        saturate(.55);
+
+    transform:
+        scale(1.05);
+
+    animation:
+        resultZoom
+        12s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes resultZoom{
+
+    from{
+        transform:
+            scale(1.03);
+    }
+
+    to{
+        transform:
+            scale(1.13);
+    }
+
+}
+
+.result-image::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:2;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 15%,
+            #000 100%
+        );
+
+    pointer-events:none;
+}
+
+.result-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:3;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ef444411,
+            transparent
+        );
+
+    animation:
+        ghostLight
+        4s
+        infinite;
+}
+
+@keyframes ghostLight{
+
+    0%,100%{
+        opacity:.2;
+    }
+
+    50%{
+        opacity:.9;
+    }
+
+}
+
+.result-body{
+
+    padding:
+        30px;
+}
+
+.result-body h2{
+
+    font-size:
+        42px;
+
+    margin-bottom:
+        10px;
+
+    text-shadow:
+        0 0 20px
+        #ef444433;
+}
+
+.type{
+
+    color:
+        #ef4444;
+
+    margin-bottom:
+        20px;
+}
+
+.story{
+
+    color:
+        #a8a8b8;
+
+    line-height:
+        1.9;
+
+    text-align:
+        left;
+
+    margin:
+        20px 0;
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:
+        20px;
+}
+
+.stat{
+
+    padding:
+        15px;
+
+    border-radius:
+        12px;
+
+    background:
+        #151522;
+
+    border:
+        1px solid
+        #ffffff08;
+}
+
+.stat small{
+
+    display:block;
+
+    color:
+        #77778c;
+
+    margin-bottom:
+        5px;
+}
+
+.stat strong{
+
+    font-size:
+        18px;
+}
+
+.scare{
+
+    margin-top:
+        20px;
+
+    padding:
+        15px;
+
+    border-radius:
+        12px;
+
+    background:
+        #241019;
+
+    color:
+        #ff8e9e;
+
+    border:
+        1px solid
+        #ef444422;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:600px){
+
+    nav{
+        padding:
+            0 15px;
+    }
+
+    .app{
+        padding:
+            25px 0;
+    }
+
+    .quiz-box{
+        padding:
+            20px;
+    }
+
+    .question{
+        font-size:
+            23px;
+    }
+
+    .result-image{
+        height:
+            280px;
+    }
+
+    .result-body h2{
+        font-size:
+            32px;
+    }
+
+    .stats{
+        grid-template-columns:
+            1fr;
+    }
+
+    .ghost-figure{
+        transform:
+            scale(.7);
+    }
+
+    .scary-face{
+        width:
+            220px;
+
+        height:
+            300px;
+    }
+
+    .eye{
+        top:
+            90px;
+
+        width:
+            40px;
+
+        height:
+            55px;
+    }
+
+    .eye1{
+        left:
+            40px;
+    }
+
+    .eye2{
+        right:
+            40px;
+    }
+
+    .mouth{
+        left:
+            45px;
+
+        right:
+            45px;
+
+        bottom:
+            45px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="fog"></div>
+
+<div class="noise"></div>
+
+<div
+    class="screen-flash"
+    id="flash">
+</div>
+
+
+<!-- NAV -->
+
+<nav>
+
+    <div
+        class="logo"
+        onclick="home()"
+    >
+        👁️ Ghost<span>Quiz</span>
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section
+    id="intro"
+    class="screen active"
+>
+
+    <div class="intro">
+
+        <div>
+
+            <div class="ghost-symbol">
+                👻
+            </div>
+
+            <h1>
+                GHOST QUIZ
+            </h1>
+
+            <p>
+
+                ตอบคำถามให้ครบ...
+
+                <br>
+
+                แล้วเราจะบอกว่า
+
+                <b>
+                    คุณมีโอกาสพบผีอะไร
+                </b>
+
+            </p>
+
+            <button
+                class="btn"
+                onclick="startQuiz()"
+            >
+
+                👁️ เริ่มการทดสอบ
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUIZ
+===================================================== -->
+
+<section
+    id="quiz"
+    class="screen"
+>
+
+    <div class="app">
+
+        <div
+            class="quiz-box"
+            id="quizBox"
+        >
+
+            <div class="progress-info">
+
+                <span id="progressText">
+                    คำถาม 1 / 8
+                </span>
+
+                <span id="percent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="questionNumber"
+                class="question-number"
+            >
+                QUESTION 01
+            </div>
+
+
+            <h2
+                id="question"
+                class="question"
+            >
+                -
+            </h2>
+
+
+            <div
+                id="answers"
+                class="answers"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section
+    id="final"
+    class="screen"
+>
+
+    <div class="app">
+
+        <div
+            class="quiz-box final-warning"
+        >
+
+            <div class="skull">
+                💀
+            </div>
+
+            <h2>
+                การทดสอบเสร็จสิ้น
+            </h2>
+
+            <p
+                style="
+                    color:#888;
+                    margin-top:15px
+                "
+            >
+                เรากำลังวิเคราะห์คำตอบของคุณ...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<section
+    id="result"
+    class="screen"
+>
+
+    <div
+        class="app result"
+    >
+
+        <div class="result-card">
+
+            <div
+                id="resultImage"
+                class="result-image"
+            >
+
+                <img
+                    id="resultGhostImg"
+                    src=""
+                    alt="ภาพผี"
+                >
+
+            </div>
+
+
+            <div class="result-body">
+
+                <p
+                    style="
+                        color:#777
+                    "
+                >
+                    ผีที่เหมาะกับคำตอบของคุณคือ
+                </p>
+
+
+                <h2 id="resultName">
+                    -
+                </h2>
+
+
+                <div
+                    id="resultType"
+                    class="type"
+                >
+                    -
+                </div>
+
+
+                <p
+                    id="resultStory"
+                    class="story"
+                >
+                    -
+                </p>
+
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <small>
+                            😱 ความน่ากลัว
+                        </small>
+
+                        <strong id="fear">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <small>
+                            🌙 ชอบปรากฏตัว
+                        </small>
+
+                        <strong id="time">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <small>
+                            🏚️ สถานที่
+                        </small>
+
+                        <strong id="place">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="scare"
+                    class="scare"
+                >
+                    -
+                </div>
+
+
+                <button
+                    class="btn"
+                    onclick="restart()"
+                >
+                    🔄 เล่นอีกครั้ง
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GHOST POPUP
+===================================================== -->
+
+<div
+    id="ghostPopup"
+    class="ghost-popup"
+>
+
+    <div class="ghost-figure">
+
+        <div class="ghost-head">
+
+            <div
+                class="ghost-eye left"
+            ></div>
+
+            <div
+                class="ghost-eye right"
+            ></div>
+
+        </div>
+
+
+        <div class="ghost-body">
+
+            <div
+                class="ghost-arm left-arm"
+            ></div>
+
+            <div
+                class="ghost-arm right-arm"
+            ></div>
+
+
+            <div class="ghost-tail">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JUMPSCARE
+===================================================== -->
+
+<div id="jumpscare">
+
+    <div class="scary-face">
+
+        <div
+            class="eye eye1"
+        ></div>
+
+        <div
+            class="eye eye2"
+        ></div>
+
+        <div class="mouth"></div>
+
+    </div>
+
+
+    <div class="scare-text">
+
+        อย่าหันกลับไป...
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   QUESTIONS
+===================================================== */
+
+const questions = [
+
+    {
+        q:
+        "ถ้าคุณอยู่บ้านคนเดียวตอนกลางคืน คุณจะทำอะไร?",
+
+        answers:[
+            [
+                "เปิดไฟทุกดวง",
+                "brave"
+            ],
+
+            [
+                "ดูหนังต่อเหมือนไม่มีอะไรเกิดขึ้น",
+                "calm"
+            ],
+
+            [
+                "ล็อกประตูและซ่อนตัว",
+                "fear"
+            ],
+
+            [
+                "ออกไปเดินดูว่าเกิดอะไรขึ้น",
+                "curious"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "คุณได้ยินเสียงเคาะประตูตอนตี 2 คุณจะ...",
+
+        answers:[
+            [
+                "เปิดประตูดูทันที",
+                "brave"
+            ],
+
+            [
+                "ถามว่าใครอยู่ข้างนอก",
+                "curious"
+            ],
+
+            [
+                "ไม่เปิดเด็ดขาด",
+                "fear"
+            ],
+
+            [
+                "แกล้งทำเป็นไม่ได้ยิน",
+                "calm"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "คุณเชื่อเรื่องผีมากแค่ไหน?",
+
+        answers:[
+            [
+                "ไม่เชื่อเลย",
+                "brave"
+            ],
+
+            [
+                "เชื่อนิดหน่อย",
+                "calm"
+            ],
+
+            [
+                "เชื่อมาก",
+                "fear"
+            ],
+
+            [
+                "อยากพิสูจน์ด้วยตัวเอง",
+                "curious"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "สถานที่ไหนทำให้คุณรู้สึกแปลกที่สุด?",
+
+        answers:[
+            [
+                "โรงพยาบาลร้าง",
+                "hospital"
+            ],
+
+            [
+                "บ้านเก่า",
+                "house"
+            ],
+
+            [
+                "ป่าตอนกลางคืน",
+                "forest"
+            ],
+
+            [
+                "สุสาน",
+                "graveyard"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "ถ้ากระจกในห้องสะท้อนบางอย่างที่ไม่ใช่คุณ คุณจะ...",
+
+        answers:[
+            [
+                "หันกลับไปดู",
+                "brave"
+            ],
+
+            [
+                "รีบออกจากห้อง",
+                "fear"
+            ],
+
+            [
+                "ถ่ายวิดีโอไว้",
+                "curious"
+            ],
+
+            [
+                "ปิดกระจกแล้วนอนต่อ",
+                "calm"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "ช่วงเวลาไหนที่คุณรู้สึกไม่สบายใจที่สุด?",
+
+        answers:[
+            [
+                "เที่ยงคืน",
+                "midnight"
+            ],
+
+            [
+                "ตี 3",
+                "3am"
+            ],
+
+            [
+                "ก่อนพระอาทิตย์ขึ้น",
+                "dawn"
+            ],
+
+            [
+                "ตอนเย็น",
+                "evening"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "ถ้าคุณเจอเด็กยืนอยู่คนเดียวในทางเดินมืด คุณจะ...",
+
+        answers:[
+            [
+                "เข้าไปถามว่าเป็นอะไร",
+                "brave"
+            ],
+
+            [
+                "เดินผ่านไป",
+                "calm"
+            ],
+
+            [
+                "วิ่งหนี",
+                "fear"
+            ],
+
+            [
+                "แอบดูจากระยะไกล",
+                "curious"
+            ]
+        ]
+    },
+
+
+    {
+        q:
+        "คำถามสุดท้าย... คุณจะกล้าเรียกชื่อผี 3 ครั้งหรือไม่?",
+
+        answers:[
+            [
+                "กล้า",
+                "brave"
+            ],
+
+            [
+                "ไม่กล้า",
+                "fear"
+            ],
+
+            [
+                "ถ้ามีเพื่อนอยู่ด้วย",
+                "calm"
+            ],
+
+            [
+                "อยากลองมาก",
+                "curious"
+            ]
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   GHOST DATABASE
+===================================================== */
+
+const ghosts = [
+
+    {
+        name:
+        "ผีกระสือ",
+
+        type:
+        "ผีที่ออกหากินในยามค่ำคืน",
+
+        fear:
+        "████████░░ 80%",
+
+        time:
+        "เที่ยงคืน",
+
+        place:
+        "บ้าน / ชุมชน",
+
+        story:
+        "ตามเรื่องเล่าพื้นบ้าน กระสือเป็นผีที่มักปรากฏในเวลากลางคืน โดยมีเรื่องเล่าหลากหลายรูปแบบเกี่ยวกับการออกหากินและการหลบซ่อนจากผู้คน.",
+
+        image:
+        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "midnight",
+            "house",
+            "fear"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีโรงพยาบาล",
+
+        type:
+        "วิญญาณในสถานที่ร้าง",
+
+        fear:
+        "█████████░ 90%",
+
+        time:
+        "ตี 3",
+
+        place:
+        "โรงพยาบาลร้าง",
+
+        story:
+        "ตำนานผีโรงพยาบาลมักเกี่ยวข้องกับสถานที่ที่เคยมีผู้คนเจ็บป่วยและเสียชีวิต ความเงียบของอาคารร้างจึงถูกนำมาเล่าเป็นเรื่องสยองขวัญอยู่เสมอ.",
+
+        image:
+        "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "hospital",
+            "3am",
+            "fear"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีเด็ก",
+
+        type:
+        "วิญญาณลึกลับ",
+
+        fear:
+        "███████░░░ 70%",
+
+        time:
+        "ก่อนรุ่งเช้า",
+
+        place:
+        "บ้านเก่า",
+
+        story:
+        "เรื่องเล่าเกี่ยวกับวิญญาณเด็กมักปรากฏในบ้านเก่า อาคารร้าง หรือสถานที่ที่มีความทรงจำในอดีต บางเรื่องเล่าถึงเสียงหัวเราะหรือเสียงฝีเท้าในพื้นที่ที่ไม่มีใครอยู่.",
+
+        image:
+        "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "house",
+            "dawn",
+            "fear"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีป่า",
+
+        type:
+        "วิญญาณแห่งป่าลึก",
+
+        fear:
+        "████████░░ 80%",
+
+        time:
+        "กลางคืน",
+
+        place:
+        "ป่าลึก",
+
+        story:
+        "เรื่องเล่าพื้นบ้านเกี่ยวกับวิญญาณในป่ามักเตือนคนที่เดินทางในพื้นที่ห่างไกลให้ระมัดระวัง โดยเฉพาะในเวลากลางคืนที่มองเห็นเส้นทางได้ยาก.",
+
+        image:
+        "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "forest",
+            "midnight",
+            "curious"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีสุสาน",
+
+        type:
+        "วิญญาณแห่งสถานที่ฝังศพ",
+
+        fear:
+        "█████████░ 90%",
+
+        time:
+        "เที่ยงคืน",
+
+        place:
+        "สุสาน",
+
+        story:
+        "ผีสุสานเป็นภาพจำของเรื่องสยองขวัญหลายวัฒนธรรม มักถูกเล่าว่าเป็นวิญญาณที่ยังคงวนเวียนอยู่ใกล้สถานที่ฝังศพ.",
+
+        image:
+        "https://images.unsplash.com/photo-1505635552518-3448ff116af3?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "graveyard",
+            "midnight",
+            "fear"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีกระจก",
+
+        type:
+        "วิญญาณจากตำนานเมือง",
+
+        fear:
+        "██████████ 100%",
+
+        time:
+        "ตี 3",
+
+        place:
+        "ห้องน้ำ / ห้องนอน",
+
+        story:
+        "ตำนานผีกระจกเกิดจากความเชื่อและเรื่องเล่าที่เกี่ยวกับการเรียกวิญญาณผ่านกระจก โดยมักถูกนำมาใช้ในเรื่องสยองขวัญและเกมท้าทาย.",
+
+        image:
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "3am",
+            "curious",
+            "brave"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีบ้านเก่า",
+
+        type:
+        "วิญญาณประจำสถานที่",
+
+        fear:
+        "███████░░░ 70%",
+
+        time:
+        "ตอนกลางคืน",
+
+        place:
+        "บ้านร้าง",
+
+        story:
+        "บ้านเก่ามักเป็นฉากของเรื่องผี เพราะเสียงไม้ เสียงลม และพื้นที่มืดสามารถสร้างบรรยากาศชวนขนลุกได้ เรื่องเล่าหลายเรื่องจึงผูกวิญญาณเข้ากับบ้านที่ไม่มีคนอาศัย.",
+
+        image:
+        "https://images.unsplash.com/photo-1520984032042-162d526883e0?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "house",
+            "evening",
+            "calm"
+        ]
+    },
+
+
+    {
+        name:
+        "ผีเงา",
+
+        type:
+        "เงาปริศนา",
+
+        fear:
+        "██████████ 100%",
+
+        time:
+        "ตี 3",
+
+        place:
+        "ทางเดินมืด",
+
+        story:
+        "ผีเงาเป็นแนวคิดที่พบได้บ่อยในเรื่องเล่าร่วมสมัย โดยมักอธิบายถึงเงาดำหรือรูปร่างคล้ายคนที่ปรากฏขึ้นเพียงชั่วครู่.",
+
+        image:
+        "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=85",
+
+        match:[
+            "3am",
+            "fear",
+            "curious"
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let questionIndex=0;
+
+let scores={
+
+    brave:0,
+    calm:0,
+    fear:0,
+    curious:0,
+
+    hospital:0,
+    house:0,
+    forest:0,
+    graveyard:0,
+
+    midnight:0,
+    "3am":0,
+    dawn:0,
+    evening:0
+};
+
+
+/* =====================================================
+   SHOW SCREEN
+===================================================== */
+
+function show(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            x =>
+            x.classList.remove("active")
+        );
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   START QUIZ
+===================================================== */
+
+function startQuiz(){
+
+    questionIndex=0;
+
+    Object.keys(scores)
+        .forEach(
+            key =>
+            scores[key]=0
+        );
+
+    show("quiz");
+
+    renderQuestion();
+
+    startHaunting();
+
+}
+
+
+/* =====================================================
+   RENDER QUESTION
+===================================================== */
+
+function renderQuestion(){
+
+    const q =
+        questions[questionIndex];
+
+    const total =
+        questions.length;
+
+    document
+        .getElementById(
+            "questionNumber"
+        )
+        .textContent =
+        "QUESTION " +
+        String(
+            questionIndex + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    document
+        .getElementById(
+            "progressText"
+        )
+        .textContent =
+        `คำถาม ${
+            questionIndex + 1
+        } / ${total}`;
+
+
+    const percent =
+        Math.round(
+            (questionIndex / total)
+            * 100
+        );
+
+
+    document
+        .getElementById(
+            "percent"
+        )
+        .textContent =
+        percent + "%";
+
+
+    document
+        .getElementById(
+            "progressBar"
+        )
+        .style.width =
+        percent + "%";
+
+
+    document
+        .getElementById(
+            "question"
+        )
+        .textContent =
+        q.q;
+
+
+    const answers =
+        document
+        .getElementById(
+            "answers"
+        );
+
+    answers.innerHTML="";
+
+
+    q.answers.forEach(
+        ([text,type]) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className =
+                "answer";
+
+            button.textContent =
+                text;
+
+            button.onclick =
+                () =>
+                selectAnswer(type);
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ANSWER
+===================================================== */
+
+function selectAnswer(type){
+
+    if(
+        scores[type] !== undefined
+    ){
+
+        scores[type]++;
+
+    }
+
+
+    /* RED FLASH */
+
+    const flash =
+        document.getElementById(
+            "flash"
+        );
+
+    flash.classList.remove(
+        "active"
+    );
+
+    void flash.offsetWidth;
+
+    flash.classList.add(
+        "active"
+    );
+
+
+    /* GLITCH */
+
+    const box =
+        document.getElementById(
+            "quizBox"
+        );
+
+    box.classList.remove(
+        "glitch"
+    );
+
+    void box.offsetWidth;
+
+    box.classList.add(
+        "glitch"
+    );
+
+
+    questionIndex++;
+
+
+    /*
+        ข้อที่ 7
+        ผีโผล่
+    */
+
+    if(
+        questionIndex === 7
+    ){
+
+        setTimeout(
+            showGhostPopup,
+            300
+        );
+
+    }
+
+
+    /*
+        ข้อสุดท้าย
+    */
+
+    if(
+        questionIndex >=
+        questions.length
+    ){
+
+        stopHaunting();
+
+
+        setTimeout(
+            showJumpscare,
+            700
+        );
+
+
+        setTimeout(
+            finishQuiz,
+            1000
+        );
+
+    }
+    else{
+
+        setTimeout(
+            renderQuestion,
+            120
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   FINISH QUIZ
+===================================================== */
+
+function finishQuiz(){
+
+    /*
+        ปิด jumpscare
+        ก่อนเข้า result
+    */
+
+    document
+        .getElementById(
+            "jumpscare"
+        )
+        .classList.remove(
+            "active"
+        );
+
+
+    show("final");
+
+
+    setTimeout(
+        calculateResult,
+        1600
+    );
+
+}
+
+
+/* =====================================================
+   CALCULATE RESULT
+===================================================== */
+
+function calculateResult(){
+
+    let bestGhost =
+        ghosts[0];
+
+    let bestScore =
+        -1;
+
+
+    ghosts.forEach(
+        ghost => {
+
+            let score=0;
+
+
+            ghost.match.forEach(
+                key => {
+
+                    score +=
+                        scores[key] || 0;
+
+                }
+            );
+
+
+            /*
+                PERSONALITY BONUS
+            */
+
+            if(
+                ghost.name ===
+                "ผีกระสือ" &&
+
+                scores.fear >
+                scores.brave
+            ){
+
+                score += 2;
+
+            }
+
+
+            if(
+                ghost.name ===
+                "ผีกระจก" &&
+
+                scores.curious >= 2
+            ){
+
+                score += 2;
+
+            }
+
+
+            if(
+                ghost.name ===
+                "ผีโรงพยาบาล" &&
+
+                scores.hospital >= 1
+            ){
+
+                score += 4;
+
+            }
+
+
+            if(
+                ghost.name ===
+                "ผีป่า" &&
+
+                scores.forest >= 1
+            ){
+
+                score += 4;
+
+            }
+
+
+            if(
+                ghost.name ===
+                "ผีสุสาน" &&
+
+                scores.graveyard >= 1
+            ){
+
+                score += 4;
+
+            }
+
+
+            if(
+                score >
+                bestScore
+            ){
+
+                bestScore =
+                    score;
+
+                bestGhost =
+                    ghost;
+
+            }
+
+        }
+    );
+
+
+    showResult(
+        bestGhost
+    );
+
+}
+
+
+/* =====================================================
+   SHOW RESULT
+===================================================== */
+
+function showResult(ghost){
+
+    const image =
+        document.getElementById(
+            "resultGhostImg"
+        );
+
+
+    image.src =
+        ghost.image;
+
+
+    image.alt =
+        ghost.name;
+
+
+    document
+        .getElementById(
+            "resultName"
+        )
+        .textContent =
+        ghost.name;
+
+
+    document
+        .getElementById(
+            "resultType"
+        )
+        .textContent =
+        ghost.type;
+
+
+    document
+        .getElementById(
+            "resultStory"
+        )
+        .textContent =
+        ghost.story;
+
+
+    document
+        .getElementById(
+            "fear"
+        )
+        .textContent =
+        ghost.fear;
+
+
+    document
+        .getElementById(
+            "time"
+        )
+        .textContent =
+        ghost.time;
+
+
+    document
+        .getElementById(
+            "place"
+        )
+        .textContent =
+        ghost.place;
+
+
+    document
+        .getElementById(
+            "scare"
+        )
+        .textContent =
+        "⚠️ ผลลัพธ์นี้เป็นเกมทายบุคลิกและเรื่องเล่าเพื่อความบันเทิง";
+
+
+    show("result");
+
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restart(){
+
+    startQuiz();
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function home(){
+
+    stopHaunting();
+
+    document
+        .getElementById(
+            "jumpscare"
+        )
+        .classList.remove(
+            "active"
+        );
+
+    show("intro");
+
+}
+
+
+/* =====================================================
+   GHOST POPUP
+===================================================== */
+
+function showGhostPopup(){
+
+    const ghost =
+        document.getElementById(
+            "ghostPopup"
+        );
+
+
+    ghost.classList.remove(
+        "show"
+    );
+
+
+    void ghost.offsetWidth;
+
+
+    ghost.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            ghost.classList.remove(
+                "show"
+            );
+
+        },
+        2800
+    );
+
+}
+
+
+/* =====================================================
+   RANDOM HAUNTING
+===================================================== */
+
+let hauntingTimer=null;
+
+
+function startHaunting(){
+
+    stopHaunting();
+
+
+    hauntingTimer =
+        setInterval(
+            () => {
+
+                const quiz =
+                    document
+                    .getElementById(
+                        "quiz"
+                    );
+
+
+                if(
+                    !quiz.classList.contains(
+                        "active"
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                    โอกาส 35%
+                    ที่ผีจะโผล่
+                */
+
+                if(
+                    Math.random() <
+                    .35
+                ){
+
+                    showGhostPopup();
+
+                }
+
+            },
+            7000
+        );
+
+}
+
+
+function stopHaunting(){
+
+    if(
+        hauntingTimer
+    ){
+
+        clearInterval(
+            hauntingTimer
+        );
+
+        hauntingTimer=null;
+
+    }
+
+}
+
+
+/* =====================================================
+   JUMPSCARE
+===================================================== */
+
+function showJumpscare(){
+
+    const scare =
+        document.getElementById(
+            "jumpscare"
+        );
+
+
+    scare.classList.add(
+        "active"
+    );
+
+
+    /*
+        สั่นตัวเว็บ
+    */
+
+    document.body.classList.add(
+        "glitch"
+    );
+
+
+    setTimeout(
+        () => {
+
+            scare.classList.remove(
+                "active"
+            );
+
+            document.body.classList.remove(
+                "glitch"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+/* =====================================================
+   CLICK TO CLOSE JUMPSCARE
+===================================================== */
+
+document
+    .getElementById(
+        "jumpscare"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            this.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            const buttons =
+                document.querySelectorAll(
+                    ".screen.active .answer"
+                );
+
+
+            if(
+                buttons.length
+            ){
+
+                buttons[0].click();
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

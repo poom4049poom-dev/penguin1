@@ -2,86 +2,86 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>👻 Ghost Quiz Horror</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>🎮 Mini Games</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
+:root{
+    --bg:#06070d;
+    --panel:#10121d;
+    --panel2:#171a29;
+    --border:#292d42;
+
+    --red:#ff365d;
+    --purple:#7c4dff;
+    --blue:#2196f3;
+    --green:#22c55e;
+    --yellow:#ffd43b;
+}
+
 body{
     min-height:100vh;
-    color:#fff;
-    font-family:Arial,"Noto Sans Thai",sans-serif;
+
+    font-family:
+        Arial,
+        "Noto Sans Thai",
+        sans-serif;
+
+    color:white;
+
     background:
-        radial-gradient(circle at 50% 0%,#480b18 0%,transparent 38%),
-        radial-gradient(circle at 10% 80%,#250b2c 0%,transparent 35%),
-        #030305;
-    overflow-x:hidden;
+        radial-gradient(
+            circle at 15% 0%,
+            #3b145b,
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            #063d62,
+            transparent 30%
+        ),
+        #06070d;
 }
 
-body.scary{
-    animation:screenFlash .25s;
-}
-
-@keyframes screenFlash{
-    0%{background:#fff}
-    40%{background:#65000b}
-    100%{background:#030305}
-}
-
-.fog{
-    position:fixed;
-    inset:0;
-    z-index:5;
-    pointer-events:none;
-    background:
-        radial-gradient(ellipse at center,
-        transparent 15%,
-        #000 90%);
-    opacity:.65;
-}
-
-.noise{
-    position:fixed;
-    inset:0;
-    z-index:6;
-    pointer-events:none;
-    opacity:.04;
-    background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-nav{
+header{
     height:70px;
-    padding:0 6%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    position:relative;
-    z-index:20;
-    background:#050509ee;
-    border-bottom:1px solid #ffffff12;
-    backdrop-filter:blur(12px);
+
+    padding:0 6%;
+
+    background:#06070ddd;
+
+    border-bottom:
+        1px solid #ffffff12;
+
+    backdrop-filter:blur(15px);
 }
 
 .logo{
-    font-size:22px;
+    font-size:23px;
     font-weight:bold;
-    cursor:pointer;
 }
 
 .logo span{
-    color:#ef233c;
+    color:var(--red);
 }
 
-.nav-right{
-    color:#666;
-    font-size:11px;
-    letter-spacing:2px;
+.container{
+    width:min(1000px,92%);
+    margin:auto;
+
+    padding:40px 0 70px;
 }
 
 .screen{
@@ -92,476 +92,730 @@ nav{
     display:block;
 }
 
-.app{
-    width:min(920px,92%);
-    margin:auto;
-    padding:45px 0;
-}
 
-/* INTRO */
+/* ==============================
+   HOME
+============================== */
 
-.intro{
-    min-height:calc(100vh - 70px);
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.hero{
     text-align:center;
+
+    padding:35px 0;
 }
 
-.intro-ghost{
-    width:min(450px,90vw);
-    height:310px;
-    object-fit:cover;
-    border-radius:25px;
-    display:block;
-    margin:auto;
-    filter:
-        brightness(.38)
-        contrast(1.7)
-        saturate(.35);
-    box-shadow:
-        0 0 90px #e5092255,
-        0 30px 100px #000;
+.hero-icon{
+    font-size:75px;
+
+    animation:
+        float 2.5s
+        ease-in-out
+        infinite;
 }
 
-.intro h1{
-    font-size:clamp(45px,9vw,82px);
-    margin-top:25px;
+@keyframes float{
+
+    50%{
+        transform:
+            translateY(-12px)
+            rotate(3deg);
+    }
+
+}
+
+.hero h1{
+    font-size:
+        clamp(
+            40px,
+            8vw,
+            72px
+        );
+
+    margin-top:10px;
+
     background:
         linear-gradient(
             90deg,
-            #fff,
-            #ef233c,
-            #9c6cff
+            white,
+            #ff365d,
+            #7c4dff,
+            #00c2ff
         );
+
     -webkit-background-clip:text;
+
     color:transparent;
 }
 
-.intro p{
-    color:#999;
-    line-height:1.9;
-    margin-top:15px;
+.hero p{
+    color:#9094aa;
+
+    margin-top:12px;
+
+    line-height:1.7;
 }
 
-.btn{
+
+/* ==============================
+   GAME CARDS
+============================== */
+
+.games{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+}
+
+.card{
+    padding:30px;
+
+    min-height:260px;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171a29,
+            #0b0c14
+        );
+
+    border:
+        1px solid #ffffff12;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.card:hover{
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #ffffff35;
+
+    box-shadow:
+        0 25px 70px #000b;
+}
+
+.card-icon{
+    font-size:60px;
+}
+
+.card h2{
+    margin-top:15px;
+
+    font-size:28px;
+}
+
+.card p{
+    color:#8d91a7;
+
+    line-height:1.7;
+
+    margin-top:8px;
+}
+
+.play{
+    margin-top:20px;
+
+    width:100%;
+
+    padding:13px;
+
     border:0;
-    padding:15px 28px;
-    margin-top:28px;
+
     border-radius:12px;
+
     color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
     background:
         linear-gradient(
             135deg,
-            #c51229,
-            #6624ca
+            #ff365d,
+            #7c4dff
         );
+
     cursor:pointer;
-    font-size:16px;
-    transition:.2s;
 }
 
-.btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 15px 50px #ef233c55;
-}
 
-/* QUIZ */
+/* ==============================
+   PANEL
+============================== */
 
-.quiz-box{
+.panel{
     background:
         linear-gradient(
             145deg,
-            #12121c,
-            #07070c
+            #131624,
+            #090a11
         );
-    border:1px solid #292938;
+
+    border:
+        1px solid var(--border);
+
     border-radius:25px;
-    padding:30px;
-    box-shadow:0 30px 100px #000;
-}
 
-.progress-info{
-    display:flex;
-    justify-content:space-between;
-    color:#888;
-    font-size:14px;
-}
+    padding:28px;
 
-.progress{
-    height:8px;
-    margin:10px 0 28px;
-    background:#20202b;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-    width:0;
-    background:
-        linear-gradient(
-            90deg,
-            #ef233c,
-            #7628d8
-        );
-    transition:.4s;
-}
-
-.question-number{
-    color:#ef233c;
-    font-size:13px;
-    letter-spacing:2px;
-    margin-bottom:14px;
-}
-
-.question-image{
-    width:100%;
-    height:300px;
-    object-fit:cover;
-    display:block;
-    border-radius:18px;
-    margin-bottom:25px;
-    background:#050505;
-    filter:
-        brightness(.43)
-        contrast(1.8)
-        saturate(.3);
     box-shadow:
-        0 20px 70px #000;
+        0 30px 100px #000b;
 }
 
-.question{
-    font-size:29px;
-    line-height:1.5;
-    margin-bottom:25px;
-}
+.back{
+    padding:10px 16px;
 
-.answers{
-    display:grid;
-    gap:12px;
-}
+    border:0;
 
-.answer{
-    width:100%;
-    padding:18px;
-    border-radius:14px;
-    border:1px solid #30303d;
-    background:#11111a;
-    color:#ddd;
-    text-align:left;
-    font-size:16px;
+    border-radius:10px;
+
+    color:white;
+
+    background:#22263a;
+
     cursor:pointer;
-    transition:.2s;
-}
 
-.answer:hover{
-    border-color:#ef233c;
-    background:#251017;
-    transform:translateX(6px);
-}
-
-/* JUMPSCARE */
-
-.jumpscare{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    display:none;
-    background:#000;
-}
-
-.jumpscare.show{
-    display:block;
-}
-
-.jumpscare img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    filter:
-        brightness(.38)
-        contrast(2)
-        saturate(.15);
-    animation:
-        scareZoom .7s,
-        shake .07s infinite;
-}
-
-@keyframes scareZoom{
-    0%{
-        transform:scale(.1);
-        opacity:0;
-    }
-    50%{
-        transform:scale(1.15);
-        opacity:1;
-    }
-    100%{
-        transform:scale(1);
-    }
-}
-
-@keyframes shake{
-    0%{transform:translate(0)}
-    25%{transform:translate(-8px,4px)}
-    50%{transform:translate(8px,-4px)}
-    75%{transform:translate(-5px,-3px)}
-    100%{transform:translate(0)}
-}
-
-.scare-text{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:8%;
-    text-align:center;
-    color:#ff2038;
-    font-size:clamp(25px,6vw,60px);
-    font-weight:bold;
-    text-shadow:0 0 30px red;
-}
-
-/* FINAL */
-
-.final-warning{
-    min-height:540px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-.final-ghost{
-    width:320px;
-    height:320px;
-    object-fit:cover;
-    border-radius:50%;
-    filter:
-        brightness(.32)
-        contrast(2)
-        saturate(.2);
-    box-shadow:0 0 120px #e5092266;
-    animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-    50%{
-        transform:scale(1.06);
-        box-shadow:0 0 160px #e5092299;
-    }
-}
-
-.final-warning h2{
-    margin-top:28px;
-    font-size:30px;
-}
-
-.final-warning p{
-    color:#777;
-    margin-top:12px;
-}
-
-/* RESULT */
-
-.result-card{
-    overflow:hidden;
-    border-radius:25px;
-    background:
-        linear-gradient(
-            145deg,
-            #15121c,
-            #07070c
-        );
-    border:1px solid #42232d;
-    box-shadow:0 30px 120px #000;
-}
-
-.result-image{
-    width:100%;
-    height:550px;
-    object-fit:cover;
-    display:block;
-    filter:
-        brightness(.42)
-        contrast(1.8)
-        saturate(.25);
-}
-
-.result-body{
-    padding:32px;
-}
-
-.result-label{
-    color:#777;
-    font-size:14px;
-}
-
-.result-body h2{
-    font-size:46px;
-    margin:8px 0;
-}
-
-.type{
-    color:#ef233c;
     margin-bottom:20px;
 }
 
-.story{
-    color:#aaa;
-    line-height:1.9;
+.title{
+    text-align:center;
+
+    margin-bottom:25px;
 }
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+.title h2{
+    font-size:32px;
+}
+
+.title p{
+    color:#888da4;
+
+    margin-top:8px;
+}
+
+
+/* ==============================
+   DIFFICULTY
+============================== */
+
+.difficulty{
+    display:flex;
+
+    justify-content:center;
+
     gap:10px;
-    margin-top:25px;
+
+    margin-bottom:25px;
 }
 
-.stat{
-    padding:17px;
+.diff{
+    padding:10px 18px;
+
+    border:1px solid #30344a;
+
+    border-radius:10px;
+
+    color:#aaa;
+
+    background:#121522;
+
+    cursor:pointer;
+}
+
+.diff.active{
+    color:white;
+
+    border-color:
+        var(--purple);
+
+    background:
+        #33245f;
+}
+
+
+/* ==============================
+   ROOM
+============================== */
+
+.room-box{
+    max-width:600px;
+
+    margin:0 auto 30px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:#0a0c14;
+
+    border:1px solid #ffffff12;
+
+    text-align:center;
+}
+
+.room-code{
+    margin:15px 0;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#171a29;
+
+    color:#ffd43b;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    letter-spacing:6px;
+}
+
+.room-input{
+    width:100%;
+
+    padding:15px;
+
     border-radius:12px;
-    background:#15151f;
+
+    border:1px solid #30344a;
+
+    background:#080a10;
+
+    color:white;
+
+    font-size:18px;
+
+    text-align:center;
 }
 
-.stat small{
-    display:block;
-    color:#777;
-    margin-bottom:7px;
+.room-buttons{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:12px;
 }
 
-.stat strong{
-    font-size:17px;
+.action{
+    padding:14px;
+
+    border:0;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    cursor:pointer;
+
+    font-size:16px;
 }
 
-.warning{
-    margin-top:22px;
+.action.secondary{
+    background:#25293b;
+}
+
+.players{
+    margin-top:20px;
+
+    text-align:left;
+}
+
+.player{
+    padding:12px;
+
+    margin-top:7px;
+
+    border-radius:10px;
+
+    background:#171a29;
+}
+
+
+/* ==============================
+   BOMB
+============================== */
+
+.bomb-info{
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+    color:#aaa;
+}
+
+.bomb-info strong{
+    color:white;
+}
+
+.board{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:10px;
+
+    max-width:650px;
+
+    margin:auto;
+}
+
+.cell{
+    aspect-ratio:1;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #20243a,
+            #151827
+        );
+
+    color:white;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.cell:hover{
+    transform:scale(1.04);
+
+    background:#292e48;
+}
+
+.cell.safe{
+    background:
+        linear-gradient(
+            145deg,
+            #14532d,
+            #0d3a20
+        );
+}
+
+.cell.bomb{
+    background:
+        linear-gradient(
+            145deg,
+            #991b1b,
+            #450a0a
+        );
+
+    animation:
+        explode .35s;
+}
+
+@keyframes explode{
+
+    50%{
+        transform:
+            scale(1.2)
+            rotate(5deg);
+    }
+
+}
+
+.stage{
+    color:#ffd43b;
+
+    font-weight:bold;
+}
+
+
+/* ==============================
+   GUESS
+============================== */
+
+.question-box{
+    max-width:650px;
+
+    margin:auto;
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    background:#0a0c14;
+
+    border:1px solid #ffffff12;
+}
+
+.question{
+    font-size:28px;
+
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+
     padding:16px;
+
     border-radius:12px;
-    background:#260c13;
-    color:#ff8994;
+
+    border:1px solid #30344a;
+
+    background:#080a10;
+
+    color:white;
+
+    font-size:18px;
+
+    text-align:center;
 }
 
-@media(max-width:600px){
+.submit{
+    width:100%;
 
-    nav{
-        padding:0 15px;
-    }
+    margin-top:12px;
 
-    .nav-right{
-        display:none;
-    }
+    padding:15px;
 
-    .app{
-        padding:25px 0;
-    }
+    border:0;
 
-    .quiz-box{
-        padding:20px;
-    }
+    border-radius:12px;
 
-    .question-image{
-        height:210px;
-    }
+    color:white;
 
-    .question{
-        font-size:23px;
-    }
+    font-size:17px;
 
-    .result-image{
-        height:350px;
-    }
+    background:
+        linear-gradient(
+            135deg,
+            #00a8ff,
+            #684cff
+        );
 
-    .result-body h2{
-        font-size:34px;
-    }
+    cursor:pointer;
+}
 
-    .stats{
+.feedback{
+    min-height:50px;
+
+    margin-top:20px;
+
+    color:#ffd43b;
+
+    font-size:18px;
+}
+
+.mode-info{
+    color:#888;
+
+    margin-bottom:15px;
+}
+
+
+/* ==============================
+   RESULT
+============================== */
+
+.result{
+    text-align:center;
+
+    padding:35px;
+}
+
+.result-icon{
+    font-size:80px;
+}
+
+.result h2{
+    font-size:35px;
+
+    margin-top:15px;
+}
+
+.result p{
+    color:#999;
+
+    margin-top:10px;
+}
+
+.restart{
+    margin-top:20px;
+
+    padding:13px 25px;
+
+    border:0;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:#292d42;
+
+    cursor:pointer;
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:650px){
+
+    .games{
         grid-template-columns:1fr;
     }
+
+    .panel{
+        padding:18px;
+    }
+
+    .board{
+        gap:6px;
+    }
+
+    .cell{
+        border-radius:9px;
+
+        font-size:19px;
+    }
+
+    .room-buttons{
+        grid-template-columns:1fr;
+    }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div class="fog"></div>
-<div class="noise"></div>
 
-<nav>
+<header>
 
-    <div
-        class="logo"
-        onclick="home()"
-    >
-        Ghost<span>Quiz</span>
+    <div class="logo">
+        🎮 Mini<span>Games</span>
     </div>
 
-    <div class="nav-right">
-        HORROR EDITION
+    <div>
+        👤 <span id="playerName">
+            Player
+        </span>
     </div>
 
-</nav>
+</header>
 
 
-<!-- JUMPSCARE -->
-
-<div
-    id="jumpscare"
-    class="jumpscare"
->
-
-    <img
-        id="jumpImage"
-        src=""
-        alt="Scary ghost"
-    >
-
-    <div class="scare-text">
-        คุณไม่ได้อยู่คนเดียว...
-    </div>
-
-</div>
+<div class="container">
 
 
-<!-- INTRO -->
+<!-- ==================================
+     HOME
+================================== -->
 
 <section
-    id="intro"
+    id="home"
     class="screen active"
 >
 
-    <div class="intro">
+    <div class="hero">
 
-        <div>
+        <div class="hero-icon">
+            🎮
+        </div>
 
-            <img
-                class="intro-ghost"
-                src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1000&q=85"
-                alt="Horror atmosphere"
-                onerror="this.src=fallbackImage"
-            >
+        <h1>
+            MINI GAMES
+        </h1>
 
-            <h1>
-                GHOST QUIZ
-            </h1>
+        <p>
+            เลือกเกมที่ต้องการเล่น
+            <br>
+            แล้วชวนเพื่อนมาแข่งกัน
+        </p>
+
+    </div>
+
+
+    <div class="games">
+
+
+        <div
+            class="card"
+            onclick="openGame('bomb')"
+        >
+
+            <div class="card-icon">
+                💣
+            </div>
+
+            <h2>
+                หลบระเบิด
+            </h2>
 
             <p>
-                24 คำถามสยองขวัญ
-                <br>
-                ผีไทย • ผีเอเชีย • ผีตะวันตก
-                <br>
-                และอาจมีบางอย่าง
-                <b>โผล่มาระหว่างเล่น...</b>
+                เปิดช่องที่ปลอดภัย
+                ผ่านด่านไปเรื่อย ๆ
+                และตำแหน่งระเบิดจะสุ่มใหม่ทุกครั้ง
             </p>
 
-            <button
-                class="btn"
-                onclick="startQuiz()"
-            >
-                👁 เริ่มการทดสอบ
+            <button class="play">
+                เล่นเกม
+            </button>
+
+        </div>
+
+
+        <div
+            class="card"
+            onclick="openGame('guess')"
+        >
+
+            <div class="card-icon">
+                🎲
+            </div>
+
+            <h2>
+                ทายอะไรก็ได้
+            </h2>
+
+            <p>
+                ตัวเกมเป็นคนเลือกโจทย์
+                สามารถปรับระดับความยาก
+                และแข่งขันกับเพื่อนได้
+            </p>
+
+            <button class="play">
+                เล่นเกม
             </button>
 
         </div>
@@ -571,177 +825,131 @@ nav{
 </section>
 
 
-<!-- QUIZ -->
+<!-- ==================================
+     BOMB GAME
+================================== -->
 
 <section
-    id="quiz"
+    id="bomb"
     class="screen"
 >
 
-    <div class="app">
+    <div class="panel">
 
-        <div class="quiz-box">
-
-            <div class="progress-info">
-
-                <span id="progressText">
-                    คำถาม 1 / 24
-                </span>
-
-                <span id="percent">
-                    0%
-                </span>
-
-            </div>
-
-            <div class="progress">
-
-                <div
-                    id="progressBar"
-                    class="progress-bar"
-                ></div>
-
-            </div>
-
-            <div
-                id="questionNumber"
-                class="question-number"
-            >
-                QUESTION 01
-            </div>
-
-            <img
-                id="questionImage"
-                class="question-image"
-                src=""
-                alt="Ghost image"
-            >
-
-            <h2
-                id="question"
-                class="question"
-            ></h2>
-
-            <div
-                id="answers"
-                class="answers"
-            ></div>
-
-        </div>
-
-    </div>
-
-</section>
+        <button
+            class="back"
+            onclick="home()"
+        >
+            ← กลับหน้าหลัก
+        </button>
 
 
-<!-- FINAL -->
-
-<section
-    id="final"
-    class="screen"
->
-
-    <div class="app">
-
-        <div class="quiz-box final-warning">
-
-            <img
-                id="finalGhost"
-                class="final-ghost"
-                src=""
-                alt="Ghost"
-            >
+        <div class="title">
 
             <h2>
-                การทดสอบเสร็จสิ้น
+                💣 หลบระเบิด
             </h2>
 
             <p>
-                กำลังวิเคราะห์ว่า...
-                <br>
-                สิ่งไหนกำลังตามคุณอยู่
+                เปิดช่องปลอดภัย
+                แล้วผ่านไปด่านต่อไป
             </p>
 
         </div>
 
-    </div>
 
-</section>
+        <div class="difficulty">
 
-
-<!-- RESULT -->
-
-<section
-    id="result"
-    class="screen"
->
-
-    <div class="app">
-
-        <div class="result-card">
-
-            <img
-                id="resultImage"
-                class="result-image"
-                src=""
-                alt="Ghost result"
+            <button
+                class="diff active"
+                onclick="setDifficulty('easy',this)"
             >
+                🟢 ง่าย
+            </button>
 
-            <div class="result-body">
+            <button
+                class="diff"
+                onclick="setDifficulty('normal',this)"
+            >
+                🟡 ปกติ
+            </button>
 
-                <div class="result-label">
-                    ผีที่ตรงกับคำตอบของคุณคือ
-                </div>
+            <button
+                class="diff"
+                onclick="setDifficulty('hard',this)"
+            >
+                🔴 ยาก
+            </button>
 
-                <h2 id="resultName"></h2>
+        </div>
 
-                <div
-                    id="resultType"
-                    class="type"
-                ></div>
 
-                <p
-                    id="resultStory"
-                    class="story"
-                ></p>
+        <div class="bomb-info">
 
-                <div class="stats">
-
-                    <div class="stat">
-                        <small>
-                            ความน่ากลัว
-                        </small>
-                        <strong id="fear"></strong>
-                    </div>
-
-                    <div class="stat">
-                        <small>
-                            เวลาปรากฏ
-                        </small>
-                        <strong id="time"></strong>
-                    </div>
-
-                    <div class="stat">
-                        <small>
-                            สถานที่
-                        </small>
-                        <strong id="place"></strong>
-                    </div>
-
-                </div>
-
-                <div class="warning">
-                    ⚠️ ผลลัพธ์นี้เป็นเกมเพื่อความบันเทิง
-                </div>
-
-                <button
-                    class="btn"
-                    onclick="restart()"
+            <span>
+                ด่าน:
+                <strong
+                    id="stage"
+                    class="stage"
                 >
-                    🔄 เล่นอีกครั้ง
-                </button>
+                    1
+                </strong>
+            </span>
 
+            <span>
+                คะแนน:
+                <strong id="bombScore">
+                    0
+                </strong>
+            </span>
+
+            <span>
+                ระเบิด:
+                <strong id="bombCount">
+                    3
+                </strong>
+            </span>
+
+        </div>
+
+
+        <div
+            id="bombBoard"
+            class="board"
+        ></div>
+
+
+        <div
+            id="bombResult"
+            class="result"
+            style="display:none"
+        >
+
+            <div
+                id="bombResultIcon"
+                class="result-icon"
+            >
+                💥
             </div>
+
+            <h2
+                id="bombResultTitle"
+            >
+                -
+            </h2>
+
+            <p
+                id="bombResultText"
+            >
+                -
+            </p>
+
+            <button
+                class="restart"
+                onclick="newBombGame()"
+            >
+                🔄 เริ่มใหม่
+            </button>
 
         </div>
 
@@ -750,933 +958,1154 @@ nav{
 </section>
 
 
+<!-- ==================================
+     GUESS GAME
+================================== -->
+
+<section
+    id="guess"
+    class="screen"
+>
+
+    <div class="panel">
+
+        <button
+            class="back"
+            onclick="home()"
+        >
+            ← กลับหน้าหลัก
+        </button>
+
+
+        <div class="title">
+
+            <h2>
+                🎲 ทายอะไรก็ได้
+            </h2>
+
+            <p>
+                เกมจะเลือกประเภทให้คุณเอง
+            </p>
+
+        </div>
+
+
+        <!-- ROOM -->
+
+        <div class="room-box">
+
+            <h3>
+                👥 ห้องเล่นกับเพื่อน
+            </h3>
+
+
+            <button
+                class="action"
+                onclick="createRoom()"
+                style="margin-top:15px"
+            >
+                ➕ สร้างห้อง
+            </button>
+
+
+            <div
+                id="createdRoom"
+                style="display:none"
+            >
+
+                <p
+                    style="
+                        color:#888;
+                        margin-top:15px;
+                    "
+                >
+                    รหัสห้องของคุณ
+                </p>
+
+                <div
+                    id="roomCode"
+                    class="room-code"
+                >
+                    ------
+                </div>
+
+                <p
+                    style="color:#777"
+                >
+                    ส่งรหัสนี้ให้เพื่อน
+                </p>
+
+            </div>
+
+
+            <div
+                style="
+                    margin:25px 0;
+                    color:#555;
+                "
+            >
+                ─── หรือ ───
+            </div>
+
+
+            <input
+                id="roomInput"
+                class="room-input"
+                placeholder="ใส่รหัสห้อง"
+                maxlength="6"
+            >
+
+
+            <button
+                class="action secondary"
+                onclick="joinRoom()"
+                style="margin-top:10px"
+            >
+                🚪 เข้าร่วมห้อง
+            </button>
+
+
+            <div
+                id="players"
+                class="players"
+            ></div>
+
+        </div>
+
+
+        <!-- DIFFICULTY -->
+
+        <div class="difficulty">
+
+            <button
+                class="diff active"
+                onclick="
+                    setGuessDifficulty(
+                        'easy',
+                        this
+                    )
+                "
+            >
+                🟢 ง่าย
+            </button>
+
+            <button
+                class="diff"
+                onclick="
+                    setGuessDifficulty(
+                        'normal',
+                        this
+                    )
+                "
+            >
+                🟡 ปกติ
+            </button>
+
+            <button
+                class="diff"
+                onclick="
+                    setGuessDifficulty(
+                        'hard',
+                        this
+                    )
+                "
+            >
+                🔴 ยาก
+            </button>
+
+        </div>
+
+
+        <div
+            class="question-box"
+        >
+
+            <div
+                id="modeInfo"
+                class="mode-info"
+            >
+                กำลังสร้างโจทย์...
+            </div>
+
+            <div
+                id="question"
+                class="question"
+            >
+                -
+            </div>
+
+            <input
+                id="guessInput"
+                class="input"
+                placeholder="พิมพ์คำตอบ"
+            >
+
+            <button
+                class="submit"
+                onclick="submitGuess()"
+            >
+                🎯 ตอบ
+            </button>
+
+            <div
+                id="feedback"
+                class="feedback"
+            ></div>
+
+            <button
+                class="restart"
+                onclick="newGuessGame()"
+            >
+                🔄 โจทย์ใหม่
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
 <script>
 
-/* =====================================================
-   FALLBACK
-===================================================== */
-
-const fallbackImage =
-"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85";
-
-
-/* =====================================================
-   ภาพผีแต่ละคำถาม
-
-   ใช้ URL ภายนอกแทน images/q01.jpg
-   จึงไม่ต้องสร้างโฟลเดอร์ images
-===================================================== */
-
-const questionImages = [
-
-"https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1515169067868-5387ec356754?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1515169067868-5387ec356754?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85",
-
-"https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=1000&q=85"
-
-];
-
-
-/* =====================================================
-   QUESTIONS
-===================================================== */
-
-const questions = [
-
-{
-q:"ถ้าคุณอยู่บ้านคนเดียวตอนตี 2 และได้ยินเสียงเดินอยู่ชั้นบน คุณจะทำอย่างไร?",
-a:[
-["ขึ้นไปดู","brave"],
-["หยิบมือถือถ่ายวิดีโอ","curious"],
-["ล็อกห้องทันที","fear"],
-["ทำเป็นไม่ได้ยิน","calm"]
-]},
-
-{
-q:"คุณได้ยินเสียงเคาะประตู 3 ครั้งตอนกลางคืน...",
-a:[
-["เปิดประตู","brave"],
-["ถามว่าใคร","curious"],
-["ไม่เปิดเด็ดขาด","fear"],
-["รอให้เสียงหาย","calm"]
-]},
-
-{
-q:"คุณได้ยินเสียงเรียกชื่อจากห้องที่ไม่มีใครอยู่...",
-a:[
-["ตอบกลับ","brave"],
-["เดินไปหาต้นเสียง","curious"],
-["วิ่งหนี","fear"],
-["ไม่สนใจ","calm"]
-]},
-
-{
-q:"ถ้าเงาในกระจกขยับช้ากว่าคุณ คุณจะ...",
-a:[
-["ลองขยับอีกครั้ง","brave"],
-["ถ่ายวิดีโอ","curious"],
-["ออกจากห้อง","fear"],
-["ปิดกระจก","calm"]
-]},
-
-{
-q:"สถานที่ใดน่ากลัวที่สุดสำหรับคุณ?",
-a:[
-["โรงพยาบาลร้าง","hospital"],
-["บ้านเก่า","house"],
-["ป่าลึก","forest"],
-["สุสาน","graveyard"]
-]},
-
-{
-q:"ถ้าเห็นแสงประหลาดในป่าตอนกลางคืน...",
-a:[
-["เดินเข้าไป","brave"],
-["ถ่ายรูป","curious"],
-["วิ่งกลับ","fear"],
-["กลับบ้าน","calm"]
-]},
-
-{
-q:"คุณได้ยินเสียงเด็กหัวเราะจากบ้านร้าง...",
-a:[
-["เข้าไปดู","brave"],
-["แอบมอง","curious"],
-["วิ่งหนี","fear"],
-["เดินผ่าน","calm"]
-]},
-
-{
-q:"ประตูห้องเปิดเองทั้งที่ไม่มีลม...",
-a:[
-["เดินไปปิด","brave"],
-["ตรวจสอบ","curious"],
-["หนีออกจากบ้าน","fear"],
-["คิดว่าประตูเสีย","calm"]
-]},
-
-{
-q:"ถ้าต้องเข้าสถานที่หนึ่งตอนเที่ยงคืน...",
-a:[
-["สุสาน","graveyard"],
-["ป่า","forest"],
-["โรงพยาบาล","hospital"],
-["บ้านร้าง","house"]
-]},
-
-{
-q:"คุณกล้าเรียกชื่อผี 3 ครั้งหรือไม่?",
-a:[
-["กล้า","brave"],
-["อยากลอง","curious"],
-["ไม่กล้า","fear"],
-["ถ้ามีเพื่อน","calm"]
-]},
-
-{
-q:"เห็นผู้หญิงผมยาวยืนอยู่ปลายทางเดิน...",
-a:[
-["เดินเข้าไปหา","brave"],
-["มองจากระยะไกล","curious"],
-["วิ่งหนี","fear"],
-["ค่อยๆ ถอย","calm"]
-]},
-
-{
-q:"มีเสียงกระซิบข้างหูทั้งที่ไม่มีใครอยู่...",
-a:[
-["หันกลับทันที","brave"],
-["หาต้นเสียง","curious"],
-["แข็งอยู่กับที่","fear"],
-["เดินออกจากห้อง","calm"]
-]},
-
-{
-q:"มือถือเปิดกล้องเองตอนตี 3...",
-a:[
-["เปิดดูทันที","brave"],
-["บันทึกวิดีโอ","curious"],
-["ปิดมือถือ","fear"],
-["วางมือถือ","calm"]
-]},
-
-{
-q:"เห็นเด็กยืนอยู่กลางถนนตอนตี 3...",
-a:[
-["เข้าไปถาม","brave"],
-["มองจากรถ","curious"],
-["ขับรถหนี","fear"],
-["โทรขอความช่วยเหลือ","calm"]
-]},
-
-{
-q:"มีเสียงลากของหนักจากห้องใต้ดิน...",
-a:[
-["ลงไปดู","brave"],
-["แอบฟัง","curious"],
-["ล็อกประตู","fear"],
-["เปิดไฟทั้งหมด","calm"]
-]},
-
-{
-q:"มีเสียงเดินตามหลังคุณในทางเดินมืด...",
-a:[
-["หันกลับไปดู","brave"],
-["หยิบมือถือ","curious"],
-["วิ่ง","fear"],
-["เดินต่อ","calm"]
-]},
-
-{
-q:"คุณเห็นเงาดำเดินผ่านหน้าต่าง...",
-a:[
-["เปิดประตูดู","brave"],
-["ถ่ายภาพ","curious"],
-["ปิดม่าน","fear"],
-["คิดว่าเป็นคน","calm"]
-]},
-
-{
-q:"โทรศัพท์ดังจากห้องที่ไม่มีโทรศัพท์...",
-a:[
-["เข้าไปดู","brave"],
-["หาต้นเสียง","curious"],
-["ไม่เข้าไป","fear"],
-["รอให้หยุด","calm"]
-]},
-
-{
-q:"ถ้าต้องนอนในบ้านร้างหนึ่งคืน...",
-a:[
-["เอาเลย","brave"],
-["ขอสำรวจก่อน","curious"],
-["ไม่มีทาง","fear"],
-["ถ้ามีเพื่อน","calm"]
-]},
-
-{
-q:"ได้กลิ่นธูปทั้งที่ไม่มีใครจุด...",
-a:[
-["เดินตามกลิ่น","brave"],
-["หาว่ามาจากไหน","curious"],
-["ออกจากบริเวณนั้น","fear"],
-["เปิดหน้าต่าง","calm"]
-]},
-
-{
-q:"ได้ยินเสียงคนร้องไห้จากหลังบ้าน...",
-a:[
-["ไปดู","brave"],
-["แอบฟัง","curious"],
-["ล็อกประตู","fear"],
-["โทรหาเพื่อน","calm"]
-]},
-
-{
-q:"เห็นรอยเท้าเปียกเดินเข้ามาในบ้าน...",
-a:[
-["เดินตามรอย","brave"],
-["ถ่ายรูป","curious"],
-["หนีออกจากบ้าน","fear"],
-["เช็ดรอยเท้า","calm"]
-]},
-
-{
-q:"มีคนโทรหาคุณจากเบอร์ของตัวเอง...",
-a:[
-["รับสาย","brave"],
-["บันทึกหน้าจอ","curious"],
-["ปิดเครื่อง","fear"],
-["ไม่รับ","calm"]
-]},
-
-{
-q:"คำถามสุดท้าย คุณคิดว่าตอนนี้มีบางอย่างกำลังมองคุณอยู่ไหม?",
-a:[
-["ไม่กลัว","brave"],
-["อาจจะมี","curious"],
-["มีแน่นอน","fear"],
-["ไม่อยากคิด","calm"]
-]}
-
-];
-
-
-/* =====================================================
-   RESULT GHOSTS
-===================================================== */
-
-const ghosts = [
-
-{
-name:"กระสือ",
-type:"ผีไทย • ตำนานพื้นบ้าน",
-image:
-"https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1200&q=90",
-fear:"90%",
-time:"กลางคืน",
-place:"บ้าน / ชุมชน",
-match:["fear","house"],
-story:"ผลลัพธ์นี้เหมาะกับคุณที่ระวังสิ่งผิดปกติและมักสังเกตสิ่งรอบตัวในเวลากลางคืน."
-},
-
-{
-name:"แม่นาค",
-type:"ผีไทย • ตำนานพระโขนง",
-image:
-"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=90",
-fear:"95%",
-time:"กลางคืน",
-place:"บ้านเก่า",
-match:["house","fear","calm"],
-story:"คุณมีบุคลิกที่ผูกพันกับสถานที่และความทรงจำ จึงเหมาะกับเรื่องเล่าผีบ้านเก่า."
-},
-
-{
-name:"ผีปอบ",
-type:"ผีไทย • ตำนานพื้นบ้าน",
-image:
-"https://images.unsplash.com/photo-1515169067868-5387ec356754?auto=format&fit=crop&w=1200&q=90",
-fear:"90%",
-time:"กลางคืน",
-place:"หมู่บ้าน",
-match:["fear","curious"],
-story:"คุณช่างสังเกตและระมัดระวัง จึงเข้ากับเรื่องเล่าผีพื้นบ้านได้ดี."
-},
-
-{
-name:"ผีโรงพยาบาล",
-type:"วิญญาณแห่งสถานที่ร้าง",
-image:
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=90",
-fear:"100%",
-time:"ตี 3",
-place:"โรงพยาบาลร้าง",
-match:["hospital","fear"],
-story:"คุณเหมาะกับเรื่องสยองขวัญในอาคารร้างและทางเดินเงียบ ๆ."
-},
-
-{
-name:"ผีกระจก",
-type:"ตำนานเมือง",
-image:
-"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=90",
-fear:"100%",
-time:"ตี 3",
-place:"ห้องมืด",
-match:["curious","brave"],
-story:"คุณเป็นคนอยากรู้อยากเห็น แม้สิ่งที่เห็นจะผิดธรรมชาติ คุณก็ยังอยากรู้ความจริง."
-},
-
-{
-name:"ผีเงา",
-type:"Shadow Figure",
-image:
-"https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=1200&q=90",
-fear:"100%",
-time:"กลางดึก",
-place:"ทางเดินมืด",
-match:["fear","curious"],
-story:"คุณเหมาะกับเรื่องลึกลับที่ไม่สามารถอธิบายรูปร่างหรือการปรากฏตัวได้ชัดเจน."
-},
-
-{
-name:"วิญญาณแห่งป่า",
-type:"ตำนานผีป่า",
-image:
-"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=90",
-fear:"85%",
-time:"กลางคืน",
-place:"ป่าลึก",
-match:["forest","curious","brave"],
-story:"ความกล้าของคุณทำให้คุณมีแนวโน้มเดินเข้าไปหาสิ่งลึกลับแทนที่จะหนี."
-},
-
-{
-name:"ผีสุสาน",
-type:"วิญญาณแห่งสถานที่ฝังศพ",
-image:
-"https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=90",
-fear:"95%",
-time:"เที่ยงคืน",
-place:"สุสาน",
-match:["graveyard","fear"],
-story:"คุณเข้ากับบรรยากาศเงียบและลึกลับของสถานที่เก่าแก่."
-}
-
-];
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let questionIndex=0;
-
-let scores={
-    brave:0,
-    calm:0,
-    fear:0,
-    curious:0,
-    hospital:0,
-    house:0,
-    forest:0,
-    graveyard:0
-};
-
-
-/* =====================================================
-   IMAGE ERROR PROTECTION
-===================================================== */
-
-function safeImage(img){
-
-    img.onerror=function(){
-
-        this.onerror=null;
-
-        this.src=fallbackImage;
-
-    };
-
-}
-
-
-/* =====================================================
-   SCREEN
-===================================================== */
-
-function show(id){
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(
-            screen=>
-            screen.classList.remove("active")
-        );
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-function startQuiz(){
-
-    questionIndex=0;
-
-    Object.keys(scores).forEach(
-        key=>{
-            scores[key]=0;
-        }
+/* ==================================
+   PLAYER
+================================== */
+
+let playerName =
+    localStorage.getItem(
+        "miniPlayerName"
     );
 
-    show("quiz");
+if(!playerName){
 
-    renderQuestion();
-}
-
-
-/* =====================================================
-   RENDER QUESTION
-===================================================== */
-
-function renderQuestion(){
-
-    const q=
-        questions[questionIndex];
-
-    const total=
-        questions.length;
-
-    const percent=
-        Math.round(
-            questionIndex/
-            total*
-            100
-        );
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent=
-        `คำถาม ${questionIndex+1} / ${total}`;
-
-
-    document.getElementById(
-        "percent"
-    ).textContent=
-        percent+"%";
-
-
-    document.getElementById(
-        "progressBar"
-    ).style.width=
-        percent+"%";
-
-
-    document.getElementById(
-        "questionNumber"
-    ).textContent=
-        "QUESTION "+
-        String(questionIndex+1)
-        .padStart(2,"0");
-
-
-    const img=
-        document.getElementById(
-            "questionImage"
-        );
-
-
-    img.src=
-        questionImages[
-            questionIndex
-        ] || fallbackImage;
-
-
-    safeImage(img);
-
-
-    document.getElementById(
-        "question"
-    ).textContent=
-        q.q;
-
-
-    const answers=
-        document.getElementById(
-            "answers"
-        );
-
-    answers.innerHTML="";
-
-
-    q.a.forEach(
-        ([text,type])=>{
-
-            const button=
-                document.createElement(
-                    "button"
-                );
-
-            button.className=
-                "answer";
-
-            button.textContent=
-                text;
-
-            button.onclick=()=>{
-                selectAnswer(type);
-            };
-
-            answers.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    /*
-       ตั้งแต่คำถามที่ 6
-       มีโอกาสผีโผล่
-    */
-
-    if(questionIndex>=5){
-
-        const chance=
-            Math.min(
-                .55,
-                .10+
-                questionIndex*.02
-            );
-
-        if(Math.random()<chance){
-
-            setTimeout(
-                jumpScare,
-                350
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   ANSWER
-===================================================== */
-
-function selectAnswer(type){
-
-    if(
-        scores[type]
-        !==undefined
-    ){
-
-        scores[type]++;
-
-    }
-
-    questionIndex++;
-
-    if(
-        questionIndex >=
-        questions.length
-    ){
-
-        finishQuiz();
-
-    }else{
-
-        renderQuestion();
-
-    }
-}
-
-
-/* =====================================================
-   JUMPSCARE
-===================================================== */
-
-function jumpScare(){
-
-    const img=
-        document.getElementById(
-            "jumpImage"
-        );
-
-
-    const random=
+    playerName =
+        "Player" +
         Math.floor(
-            Math.random()*
-            questionImages.length
+            Math.random()*9999
         );
 
+    localStorage.setItem(
+        "miniPlayerName",
+        playerName
+    );
 
-    img.src=
-        questionImages[random]
-        ||fallbackImage;
+}
+
+document.getElementById(
+    "playerName"
+).textContent =
+    playerName;
 
 
-    safeImage(img);
+/* ==================================
+   SCREEN
+================================== */
 
+function openGame(id){
 
-    document.body.classList.add(
-        "scary"
+    document.getElementById(
+        "home"
+    ).classList.remove(
+        "active"
+    );
+
+    document
+        .querySelectorAll(
+            ".screen"
+        )
+        .forEach(
+            x=>x.classList.remove(
+                "active"
+            )
+        );
+
+    document.getElementById(
+        id
+    ).classList.add(
+        "active"
     );
 
 
+    if(id==="bomb"){
+        newBombGame();
+    }
+
+    if(id==="guess"){
+        newGuessGame();
+    }
+
+}
+
+
+function home(){
+
     document
-        .getElementById(
-            "jumpscare"
+        .querySelectorAll(
+            ".screen"
         )
-        .classList.add(
-            "show"
+        .forEach(
+            x=>x.classList.remove(
+                "active"
+            )
         );
+
+    document.getElementById(
+        "home"
+    ).classList.add(
+        "active"
+    );
+
+}
+
+
+/* ==================================
+   DIFFICULTY
+================================== */
+
+let bombDifficulty =
+    "easy";
+
+
+function setDifficulty(
+    level,
+    button
+){
+
+    bombDifficulty =
+        level;
+
+    document
+        .querySelectorAll(
+            "#bomb .diff"
+        )
+        .forEach(
+            x=>x.classList.remove(
+                "active"
+            )
+        );
+
+    button.classList.add(
+        "active"
+    );
+
+    newBombGame();
+
+}
+
+
+/* ==================================
+   BOMB GAME
+================================== */
+
+let bombStage=1;
+let bombScore=0;
+let bombPositions=[];
+let bombFinished=false;
+
+
+function getBombCount(){
+
+    if(bombDifficulty==="easy")
+        return 3;
+
+    if(bombDifficulty==="normal")
+        return 5;
+
+    return 8;
+
+}
+
+
+function getSafeNeeded(){
+
+    if(bombDifficulty==="easy")
+        return 12;
+
+    if(bombDifficulty==="normal")
+        return 15;
+
+    return 17;
+
+}
+
+
+function newBombGame(){
+
+    bombStage=1;
+    bombScore=0;
+
+    document.getElementById(
+        "bombResult"
+    ).style.display="none";
+
+    startBombStage();
+
+}
+
+
+function startBombStage(){
+
+    bombFinished=false;
+
+    const total=25;
+
+    const bombCount=
+        getBombCount();
+
+    bombPositions=[];
+
+
+    while(
+        bombPositions.length <
+        bombCount
+    ){
+
+        const random=
+            Math.floor(
+                Math.random()*total
+            );
+
+        if(
+            !bombPositions.includes(
+                random
+            )
+        ){
+
+            bombPositions.push(
+                random
+            );
+
+        }
+
+    }
+
+
+    document.getElementById(
+        "stage"
+    ).textContent =
+        bombStage;
+
+
+    document.getElementById(
+        "bombScore"
+    ).textContent =
+        bombScore;
+
+
+    document.getElementById(
+        "bombCount"
+    ).textContent =
+        bombCount;
+
+
+    const board=
+        document.getElementById(
+            "bombBoard"
+        );
+
+    board.innerHTML="";
+
+
+    for(
+        let i=0;
+        i<total;
+        i++
+    ){
+
+        const cell=
+            document.createElement(
+                "button"
+            );
+
+        cell.className="cell";
+
+        cell.textContent="❓";
+
+
+        cell.onclick=()=>{
+
+            clickBombCell(
+                cell,
+                i
+            );
+
+        };
+
+
+        board.appendChild(
+            cell
+        );
+
+    }
+
+}
+
+
+function clickBombCell(
+    cell,
+    index
+){
+
+    if(bombFinished)return;
+
+
+    if(
+        cell.classList.contains(
+            "safe"
+        ) ||
+        cell.classList.contains(
+            "bomb"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        bombPositions.includes(
+            index
+        )
+    ){
+
+        cell.classList.add(
+            "bomb"
+        );
+
+        cell.textContent="💥";
+
+        loseBomb();
+
+        return;
+
+    }
+
+
+    cell.classList.add(
+        "safe"
+    );
+
+    cell.textContent="✅";
+
+
+    bombScore += 10;
+
+
+    document.getElementById(
+        "bombScore"
+    ).textContent =
+        bombScore;
+
+
+    const safeCells=
+        document.querySelectorAll(
+            "#bombBoard .safe"
+        ).length;
+
+
+    if(
+        safeCells >=
+        getSafeNeeded()
+    ){
+
+        winBombStage();
+
+    }
+
+}
+
+
+function winBombStage(){
+
+    bombFinished=true;
+
+    bombScore +=
+        bombStage*50;
+
+
+    document.getElementById(
+        "bombScore"
+    ).textContent =
+        bombScore;
+
+
+    bombStage++;
 
 
     setTimeout(()=>{
 
-        document
-            .getElementById(
-                "jumpscare"
+        if(
+            document.getElementById(
+                "bomb"
+            ).classList.contains(
+                "active"
             )
-            .classList.remove(
-                "show"
-            );
+        ){
 
-        document.body.classList.remove(
-            "scary"
-        );
+            startBombStage();
+
+        }
 
     },900);
 
 }
 
 
-/* =====================================================
-   FINISH
-===================================================== */
+function loseBomb(){
 
-function finishQuiz(){
-
-    show("final");
+    bombFinished=true;
 
 
-    const random=
-        Math.floor(
-            Math.random()*
-            questionImages.length
-        );
+    document
+        .querySelectorAll(
+            "#bombBoard .cell"
+        )
+        .forEach(
+            (cell,index)=>{
 
+                if(
+                    bombPositions.includes(
+                        index
+                    )
+                ){
 
-    const finalImg=
-        document.getElementById(
-            "finalGhost"
-        );
+                    cell.textContent="💣";
 
-
-    finalImg.src=
-        questionImages[random]
-        ||fallbackImage;
-
-
-    safeImage(finalImg);
-
-
-    setTimeout(
-        calculateResult,
-        2200
-    );
-
-}
-
-
-/* =====================================================
-   RESULT
-===================================================== */
-
-function calculateResult(){
-
-    let best=
-        ghosts[0];
-
-    let bestScore=
-        -Infinity;
-
-
-    ghosts.forEach(
-        ghost=>{
-
-            let score=0;
-
-
-            ghost.match.forEach(
-                key=>{
-                    score+=
-                        scores[key]||0;
                 }
-            );
-
-
-            if(
-                ghost.name===
-                "ผีโรงพยาบาล" &&
-                scores.hospital>0
-            ){
-                score+=5;
-            }
-
-
-            if(
-                ghost.name===
-                "วิญญาณแห่งป่า" &&
-                scores.forest>0
-            ){
-                score+=5;
-            }
-
-
-            if(
-                ghost.name===
-                "ผีสุสาน" &&
-                scores.graveyard>0
-            ){
-                score+=5;
-            }
-
-
-            if(
-                ghost.name===
-                "ผีกระจก" &&
-                scores.curious>=3
-            ){
-                score+=4;
-            }
-
-
-            if(score>bestScore){
-
-                bestScore=
-                    score;
-
-                best=
-                    ghost;
 
             }
-
-        }
-    );
-
-
-    showResult(best);
-
-}
-
-
-/* =====================================================
-   SHOW RESULT
-===================================================== */
-
-function showResult(ghost){
-
-    const image=
-        document.getElementById(
-            "resultImage"
         );
 
 
-    image.src=
-        ghost.image;
-
-
-    safeImage(image);
+    document.getElementById(
+        "bombResult"
+    ).style.display="block";
 
 
     document.getElementById(
-        "resultName"
-    ).textContent=
-        ghost.name;
+        "bombResultIcon"
+    ).textContent="💥";
 
 
     document.getElementById(
-        "resultType"
+        "bombResultTitle"
     ).textContent=
-        ghost.type;
+        "แพ้แล้ว!";
 
 
     document.getElementById(
-        "resultStory"
+        "bombResultText"
     ).textContent=
-        ghost.story;
-
-
-    document.getElementById(
-        "fear"
-    ).textContent=
-        ghost.fear;
-
-
-    document.getElementById(
-        "time"
-    ).textContent=
-        ghost.time;
-
-
-    document.getElementById(
-        "place"
-    ).textContent=
-        ghost.place;
-
-
-    show("result");
+        `คุณไปถึงด่าน ${bombStage} `+
+        `คะแนนรวม ${bombScore} `+
+        `ตำแหน่งระเบิดจะสุ่มใหม่เมื่อเริ่มอีกครั้ง`;
 
 }
 
 
-/* =====================================================
-   RESTART
-===================================================== */
+/* ==================================
+   GUESS GAME
+================================== */
 
-function restart(){
+let guessDifficulty=
+    "easy";
 
-    startQuiz();
+let currentGame=null;
+
+
+const gameTypes=[
+
+    "number",
+    "color",
+    "math"
+
+];
+
+
+function setGuessDifficulty(
+    level,
+    button
+){
+
+    guessDifficulty =
+        level;
+
+
+    document
+        .querySelectorAll(
+            "#guess .diff"
+        )
+        .forEach(
+            x=>x.classList.remove(
+                "active"
+            )
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    newGuessGame();
 
 }
 
 
-/* =====================================================
-   HOME
-===================================================== */
+function newGuessGame(){
 
-function home(){
-
-    show("intro");
-
-}
+    document.getElementById(
+        "guessInput"
+    ).value="";
 
 
-/* =====================================================
-   ESC
-===================================================== */
+    document.getElementById(
+        "feedback"
+    ).textContent="";
 
-document.addEventListener(
-    "keydown",
-    event=>{
 
-        if(
-            event.key===
-            "Escape"
-        ){
+    const type=
+        gameTypes[
+            Math.floor(
+                Math.random()*
+                gameTypes.length
+            )
+        ];
 
-            document
-                .getElementById(
-                    "jumpscare"
-                )
-                .classList.remove(
-                    "show"
-                );
 
-        }
+    if(type==="number"){
+
+        createNumberGame();
 
     }
-);
+
+    if(type==="color"){
+
+        createColorGame();
+
+    }
+
+    if(type==="math"){
+
+        createMathGame();
+
+    }
+
+}
+
+
+/* ==================================
+   NUMBER
+================================== */
+
+function createNumberGame(){
+
+    let max=20;
+
+    if(
+        guessDifficulty==="normal"
+    )
+        max=50;
+
+    if(
+        guessDifficulty==="hard"
+    )
+        max=100;
+
+
+    const answer=
+        Math.floor(
+            Math.random()*max
+        )+1;
+
+
+    currentGame={
+        type:"number",
+        answer:answer
+    };
+
+
+    document.getElementById(
+        "modeInfo"
+    ).textContent=
+        `🎯 ทายตัวเลข 1-${max}`;
+
+
+    document.getElementById(
+        "question"
+    ).textContent=
+        `ตัวเลขอะไรอยู่ในช่วง 1-${max}?`;
+
+}
+
+
+/* ==================================
+   COLOR
+================================== */
+
+function createColorGame(){
+
+    const colors=[
+
+        ["แดง","red"],
+        ["น้ำเงิน","blue"],
+        ["เขียว","green"],
+        ["เหลือง","yellow"],
+        ["ม่วง","purple"]
+
+    ];
+
+
+    const selected=
+        colors[
+            Math.floor(
+                Math.random()*
+                colors.length
+            )
+        ];
+
+
+    currentGame={
+        type:"color",
+        answer:selected[0]
+    };
+
+
+    document.getElementById(
+        "modeInfo"
+    ).textContent=
+        "🎨 ทายสี";
+
+
+    document.getElementById(
+        "question"
+    ).textContent=
+        "สีอะไรที่ตัวเกมเลือกไว้? " +
+        "(แดง / น้ำเงิน / เขียว / เหลือง / ม่วง)";
+
+}
+
+
+/* ==================================
+   MATH
+================================== */
+
+function createMathGame(){
+
+    let max=10;
+
+    if(
+        guessDifficulty==="normal"
+    )
+        max=30;
+
+    if(
+        guessDifficulty==="hard"
+    )
+        max=100;
+
+
+    const a=
+        Math.floor(
+            Math.random()*max
+        )+1;
+
+
+    const b=
+        Math.floor(
+            Math.random()*max
+        )+1;
+
+
+    const operations=[
+        "+",
+        "-",
+        "*"
+    ];
+
+
+    const op=
+        operations[
+            Math.floor(
+                Math.random()*
+                operations.length
+            )
+        ];
+
+
+    let answer;
+
+
+    if(op==="+")
+        answer=a+b;
+
+    if(op==="-")
+        answer=a-b;
+
+    if(op==="*")
+        answer=a*b;
+
+
+    currentGame={
+        type:"math",
+        answer:answer
+    };
+
+
+    document.getElementById(
+        "modeInfo"
+    ).textContent=
+        "🧠 โจทย์คณิตศาสตร์";
+
+
+    document.getElementById(
+        "question"
+    ).textContent=
+        `${a} ${op} ${b} = ?`;
+
+}
+
+
+/* ==================================
+   SUBMIT GUESS
+================================== */
+
+function submitGuess(){
+
+    if(!currentGame)return;
+
+
+    const input=
+        document.getElementById(
+            "guessInput"
+        );
+
+
+    const answer=
+        input.value
+        .trim();
+
+
+    if(!answer){
+
+        document.getElementById(
+            "feedback"
+        ).textContent=
+            "⚠️ กรุณาใส่คำตอบ";
+
+        return;
+
+    }
+
+
+    const correct=
+        String(answer)
+        .toLowerCase() ===
+        String(currentGame.answer)
+        .toLowerCase();
+
+
+    if(correct){
+
+        document.getElementById(
+            "feedback"
+        ).textContent=
+            "🎉 ถูกต้อง! คุณเก่งมาก";
+
+
+        setTimeout(
+            newGuessGame,
+            1200
+        );
+
+    }else{
+
+        document.getElementById(
+            "feedback"
+        ).textContent=
+            "❌ ยังไม่ถูก ลองอีกครั้ง";
+
+    }
+
+}
+
+
+/* ==================================
+   ROOM SYSTEM
+================================== */
+
+let currentRoom=null;
+
+
+function generateRoomCode(){
+
+    return Math
+        .floor(
+            100000+
+            Math.random()*900000
+        )
+        .toString();
+
+}
+
+
+function createRoom(){
+
+    const code=
+        generateRoomCode();
+
+
+    currentRoom={
+        code:code,
+
+        host:playerName,
+
+        players:[
+            playerName
+        ]
+    };
+
+
+    localStorage.setItem(
+        "miniRoom",
+        JSON.stringify(
+            currentRoom
+        )
+    );
+
+
+    document.getElementById(
+        "createdRoom"
+    ).style.display="block";
+
+
+    document.getElementById(
+        "roomCode"
+    ).textContent=code;
+
+
+    updatePlayers();
+
+}
+
+
+function joinRoom(){
+
+    const code=
+        document.getElementById(
+            "roomInput"
+        ).value.trim();
+
+
+    if(!/^\d{6}$/.test(code)){
+
+        alert(
+            "กรุณาใส่รหัสห้อง 6 หลัก"
+        );
+
+        return;
+
+    }
+
+
+    const saved=
+        localStorage.getItem(
+            "miniRoom"
+        );
+
+
+    if(
+        !saved ||
+        JSON.parse(saved).code !== code
+    ){
+
+        alert(
+            "ไม่พบห้องนี้"
+        );
+
+        return;
+
+    }
+
+
+    currentRoom=
+        JSON.parse(saved);
+
+
+    if(
+        !currentRoom.players.includes(
+            playerName
+        )
+    ){
+
+        currentRoom.players.push(
+            playerName
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "miniRoom",
+        JSON.stringify(
+            currentRoom
+        )
+    );
+
+
+    updatePlayers();
+
+}
+
+
+function updatePlayers(){
+
+    const box=
+        document.getElementById(
+            "players"
+        );
+
+
+    if(!currentRoom){
+
+        box.innerHTML="";
+
+        return;
+
+    }
+
+
+    box.innerHTML=
+        "<strong>👥 ผู้เล่นในห้อง</strong>";
+
+
+    currentRoom.players
+        .forEach(
+            player=>{
+
+                const div=
+                    document.createElement(
+                        "div"
+                    );
+
+                div.className="player";
+
+                div.textContent=
+                    "🟢 " + player;
+
+                box.appendChild(
+                    div
+                );
+
+            }
+        );
+
+}
 
 </script>
 

@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>Mini Games Online</title>
+<title>💣 BOMB & NUMBER</title>
 
 <style>
 *{
@@ -13,1200 +12,579 @@
     padding:0;
 }
 
-:root{
-    --bg:#05060b;
-    --panel:#0e111c;
-    --panel2:#151a29;
-    --border:#293047;
-    --red:#ff3155;
-    --purple:#7545ff;
-    --blue:#2494ff;
-    --green:#19c37d;
-    --yellow:#ffd43b;
-    --text:#f8fafc;
-    --muted:#8e95a9;
-}
-
 body{
     min-height:100vh;
-    color:var(--text);
-    font-family:
-        Arial,
-        "Noto Sans Thai",
-        sans-serif;
-
+    font-family:Arial,"Noto Sans Thai",sans-serif;
+    color:#fff;
     background:
-        radial-gradient(
-            circle at 20% 0%,
-            #3b1454,
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 100% 20%,
-            #063b60,
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            #35101c,
-            transparent 35%
-        ),
-        var(--bg);
-
-    overflow-x:hidden;
+        radial-gradient(circle at top,#202044 0%,transparent 40%),
+        linear-gradient(135deg,#050509,#0b0b18);
 }
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            rgba(255,255,255,.015) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.015) 1px,
-            transparent 1px
-        );
-
-    background-size:40px 40px;
-
-    mask-image:
-        radial-gradient(
-            circle,
-            black,
-            transparent 80%
-        );
-}
-
-button,
-input{
-    font-family:inherit;
+button,input,select{
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-header{
-    height:70px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 6%;
-
-    background:#05060bdd;
-
-    border-bottom:
-        1px solid #ffffff12;
-
-    backdrop-filter:blur(18px);
-
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:900;
-}
-
-.logo span{
-    color:var(--red);
-}
-
-.user{
-    color:#aab0c0;
-}
-
-.user b{
-    color:white;
-}
-
-.container{
-    width:min(1000px,92%);
-    margin:auto;
-    padding:35px 0 80px;
-}
-
 .screen{
     display:none;
+    min-height:100vh;
 }
 
 .screen.active{
     display:block;
 }
 
-/* HOME */
+.container{
+    width:min(1000px,94%);
+    margin:auto;
+    padding:30px 0;
+}
+
+header{
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ffffff15;
+    background:#050509dd;
+    backdrop-filter:blur(15px);
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ff3b3b;
+}
+
+.card{
+    background:#11111d;
+    border:1px solid #29293b;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 25px 70px #0008;
+}
+
+.center{
+    text-align:center;
+}
 
 .hero{
-    text-align:center;
-    padding:45px 0 35px;
+    min-height:calc(100vh - 70px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .hero-icon{
-    font-size:75px;
-
-    animation:
-        float 3s ease-in-out infinite;
+    font-size:100px;
+    animation:float 2.5s infinite ease-in-out;
 }
 
 @keyframes float{
-    50%{
-        transform:translateY(-10px);
-    }
+    50%{transform:translateY(-12px)}
 }
 
-.hero h1{
-    margin-top:15px;
-
-    font-size:
-        clamp(
-            42px,
-            9vw,
-            78px
-        );
-
-    background:
-        linear-gradient(
-            90deg,
-            white,
-            #ff3155,
-            #7545ff,
-            #20b9ff
-        );
-
+h1{
+    font-size:clamp(40px,8vw,75px);
+    background:linear-gradient(90deg,#fff,#ff3b3b,#8b5cf6);
     -webkit-background-clip:text;
     color:transparent;
+    margin:15px 0;
 }
 
-.hero p{
-    margin-top:12px;
-
-    color:var(--muted);
-
-    line-height:1.8;
+h2{
+    margin-bottom:15px;
 }
 
-.game-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:20px;
-}
-
-.game-card{
-    padding:30px;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #171b2a,
-            #090b12
-        );
-
-    border:
-        1px solid #ffffff14;
-
-    box-shadow:
-        0 25px 80px #0008;
-
-    transition:.25s;
-}
-
-.game-card:hover{
-    transform:
-        translateY(-7px);
-
-    border-color:
-        #ffffff38;
-}
-
-.game-card .icon{
-    font-size:60px;
-}
-
-.game-card h2{
-    margin-top:14px;
-    font-size:28px;
-}
-
-.game-card p{
-    color:var(--muted);
+p{
+    color:#aaaabd;
     line-height:1.7;
-    margin-top:8px;
 }
 
-.primary{
-    width:100%;
-
-    padding:14px 20px;
-
-    margin-top:20px;
-
+.btn{
     border:0;
-
-    border-radius:13px;
-
     color:white;
-
-    font-size:16px;
-    font-weight:bold;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--red),
-            var(--purple)
-        );
-
-    box-shadow:
-        0 10px 30px #ff315533;
-
+    padding:14px 22px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ef4444,#7c3aed);
+    margin:8px 4px;
     transition:.2s;
 }
 
-.primary:hover{
+.btn:hover{
     transform:translateY(-2px);
+    box-shadow:0 10px 30px #ef444455;
 }
 
-/* PANEL */
-
-.panel{
-    padding:25px;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #151927,
-            #080a11
-        );
-
-    border:
-        1px solid var(--border);
-
-    box-shadow:
-        0 30px 100px #000b;
+.btn.secondary{
+    background:#222235;
 }
 
-.back{
-    padding:10px 15px;
-
-    border:0;
-
-    border-radius:10px;
-
-    color:white;
-
-    background:#252b3d;
-
-    margin-bottom:20px;
+.btn.green{
+    background:linear-gradient(135deg,#16a34a,#0891b2);
 }
 
-.title{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.title h2{
-    font-size:34px;
-}
-
-.title p{
-    color:var(--muted);
-    margin-top:8px;
-}
-
-/* LOBBY */
-
-.lobby{
-    max-width:650px;
-    margin:auto;
-}
-
-.input{
+input,select{
     width:100%;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    border:
-        1px solid #30374c;
-
-    background:#070910;
-
-    color:white;
-
-    outline:none;
-
-    font-size:16px;
-
-    text-align:center;
-}
-
-.input:focus{
-    border-color:
-        var(--purple);
-}
-
-.two{
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:10px;
-
-    margin-top:10px;
-}
-
-.action{
     padding:14px;
-
-    border:0;
-
     border-radius:12px;
-
+    border:1px solid #33334a;
+    background:#080812;
     color:white;
-
-    font-weight:bold;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #7046ff
-        );
+    outline:none;
+    margin:8px 0;
 }
 
-.action.gray{
-    background:#272d40;
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:20px;
 }
 
-.code-title{
-    color:#7e8498;
-    margin-top:25px;
-    text-align:center;
+.menu-box{
+    padding:25px;
+    background:#151522;
+    border:1px solid #29293c;
+    border-radius:16px;
 }
 
 .room-code{
-    text-align:center;
-
-    margin-top:8px;
-
-    padding:18px;
-
-    border-radius:14px;
-
-    color:var(--yellow);
-
-    background:#181d2b;
-
-    font-size:35px;
-
-    font-weight:900;
-
+    font-size:38px;
     letter-spacing:8px;
-}
-
-.room-status{
-    margin-top:12px;
-
-    padding:12px;
-
-    border-radius:11px;
-
-    text-align:center;
-
-    color:#9ca3b8;
-
-    background:#0a0d15;
+    color:#f87171;
+    font-weight:bold;
+    margin:15px;
 }
 
 .players{
-    margin-top:20px;
-}
-
-.players h3{
-    margin-bottom:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:20px 0;
 }
 
 .player{
-    padding:13px;
-
-    margin-top:7px;
-
-    border-radius:11px;
-
-    background:#181d2b;
-
-    border:1px solid #ffffff09;
+    background:#202033;
+    padding:10px 15px;
+    border-radius:999px;
 }
 
-.player.host{
-    border-color:
-        #ffd43b44;
-}
-
-.player .score{
-    float:right;
-    color:#ffd43b;
-}
-
-.host-controls{
+.settings{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
     margin-top:20px;
-
-    padding-top:20px;
-
-    border-top:
-        1px solid #ffffff0d;
-}
-
-.difficulty{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.diff{
-    flex:1;
-
-    padding:11px;
-
-    border-radius:10px;
-
-    border:
-        1px solid #30374c;
-
-    color:#8f96a9;
-
-    background:#111522;
-}
-
-.diff.active{
-    color:white;
-
-    border-color:
-        var(--purple);
-
-    background:#302052;
-}
-
-/* GAME */
-
-.game{
-    margin-top:25px;
 }
 
 .game-top{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:10px;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     margin-bottom:20px;
 }
 
-.stat{
-    padding:15px;
-
-    border-radius:13px;
-
-    text-align:center;
-
-    background:#111522;
-
-    border:
-        1px solid #ffffff0b;
+.stage{
+    color:#ff5757;
+    font-weight:bold;
 }
 
-.stat small{
-    display:block;
-
-    color:#747c91;
-
-    margin-bottom:5px;
-}
-
-.stat strong{
-    font-size:22px;
-}
-
-.yellow{
-    color:var(--yellow);
-}
-
-.green{
-    color:var(--green);
-}
-
-.red{
-    color:var(--red);
-}
-
-/* BOMB */
-
-.board{
+.bomb-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:9px;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-top:25px;
 }
 
 .cell{
     aspect-ratio:1;
-
-    border:1px solid #32394e;
-
+    border:1px solid #33334a;
     border-radius:14px;
-
-    color:white;
-
-    font-size:25px;
-
     background:
-        linear-gradient(
-            145deg,
-            #252b40,
-            #151a29
-        );
-
-    box-shadow:
-        inset 0 1px 0 #ffffff08;
-
+        linear-gradient(145deg,#1c1c2c,#10101a);
+    color:white;
+    font-size:28px;
     transition:.15s;
 }
 
 .cell:hover{
     transform:scale(1.04);
-
-    border-color:
-        #6c7695;
+    border-color:#ef4444;
 }
 
 .cell.safe{
-    background:
-        linear-gradient(
-            145deg,
-            #166534,
-            #0d3b23
-        );
-
+    background:#12351f;
     border-color:#22c55e;
 }
 
-.cell.bomb{
-    background:
-        radial-gradient(
-            circle,
-            #ff3333,
-            #7f1d1d
-        );
-
-    border-color:#ff5555;
-
-    animation:
-        explode .35s;
+.cell.boom{
+    background:#5c1010;
+    border-color:#ef4444;
+    animation:shake .3s;
 }
 
-@keyframes explode{
-    50%{
-        transform:scale(1.18);
-    }
+@keyframes shake{
+    25%{transform:translateX(-5px)}
+    50%{transform:translateX(5px)}
+    75%{transform:translateX(-5px)}
 }
 
 .message{
-    min-height:45px;
-
-    margin:15px 0;
-
-    padding:12px;
-
-    border-radius:11px;
-
+    margin-top:20px;
+    padding:15px;
+    border-radius:12px;
+    background:#181827;
     text-align:center;
-
-    color:#aeb5c8;
-
-    background:#0a0d15;
 }
 
-/* GUESS */
-
-.guess{
-    max-width:700px;
-
-    margin:auto;
-
+.number-area{
     text-align:center;
-
-    padding:25px;
-
-    border-radius:20px;
-
-    background:#090c14;
-
-    border:
-        1px solid #ffffff10;
+    padding:30px 0;
 }
 
-.question{
-    font-size:
-        clamp(
-            24px,
-            5vw,
-            38px
-        );
-
-    line-height:1.5;
-
-    margin-bottom:20px;
+.range{
+    font-size:20px;
+    color:#a78bfa;
+    margin:15px;
 }
 
-.feedback{
-    min-height:30px;
-
-    margin-top:15px;
-
-    color:var(--yellow);
-}
-
-.leaderboard{
+.number-buttons{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
     margin-top:25px;
 }
 
-.leaderboard h3{
-    margin-bottom:10px;
+.num{
+    padding:18px 5px;
+    border-radius:12px;
+    border:1px solid #33334a;
+    background:#171725;
+    color:#fff;
 }
 
-.rank{
-    padding:11px 14px;
-
-    margin-top:6px;
-
-    border-radius:10px;
-
-    background:#171b28;
+.num:hover{
+    background:#29203e;
+    border-color:#8b5cf6;
 }
 
-/* MOBILE */
+.result{
+    font-size:30px;
+    text-align:center;
+    padding:30px;
+}
+
+.warning{
+    color:#f87171;
+}
+
+.success{
+    color:#4ade80;
+}
+
+.log{
+    max-height:180px;
+    overflow:auto;
+    margin-top:20px;
+    background:#080811;
+    border-radius:12px;
+    padding:12px;
+}
+
+.log div{
+    padding:7px;
+    border-bottom:1px solid #ffffff08;
+    color:#aaa;
+}
 
 @media(max-width:650px){
-
-    .container{
-        width:94%;
-        padding-top:20px;
-    }
-
-    .game-grid{
+    .menu-grid,
+    .settings{
         grid-template-columns:1fr;
     }
 
-    .two{
-        grid-template-columns:1fr;
+    .bomb-grid{
+        grid-template-columns:repeat(4,1fr);
     }
 
-    .game-top{
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-    .stat{
-        padding:10px 5px;
-    }
-
-    .stat strong{
-        font-size:17px;
-    }
-
-    .panel{
-        padding:17px;
-    }
-
-    .board{
-        gap:5px;
+    .number-buttons{
+        grid-template-columns:repeat(4,1fr);
     }
 
     .cell{
-        border-radius:8px;
-        font-size:18px;
-    }
-
-    .room-code{
-        font-size:27px;
-        letter-spacing:5px;
+        font-size:22px;
     }
 }
-
 </style>
 </head>
 
 <body>
 
+<!-- ================= HOME ================= -->
+
+<section id="home" class="screen active">
+
 <header>
-
-    <div class="logo">
-        🎮 Mini<span>Games</span>
-    </div>
-
-    <div class="user">
-        👤 <b id="userName">Player</b>
-    </div>
-
+    <div class="logo">💣 BOMB<span>GAME</span></div>
 </header>
 
+<div class="hero">
+<div class="container center">
+
+    <div class="hero-icon">💣</div>
+
+    <h1>BOMB & NUMBER</h1>
+
+    <p>
+        เกมหลบระเบิดและเกมทายหมายเลข<br>
+        สร้างห้องแล้วชวนเพื่อนมาเล่นได้
+    </p>
+
+    <button class="btn" onclick="showCreate()">
+        🏠 สร้างห้อง
+    </button>
+
+    <button class="btn secondary" onclick="showJoin()">
+        🔑 เข้าห้อง
+    </button>
+
+</div>
+</div>
+</section>
+
+
+<!-- ================= CREATE ================= -->
+
+<section id="create" class="screen">
 
 <div class="container">
 
+<div class="card">
 
-<!-- =========================
-     HOME
-========================= -->
+<h2>🏠 สร้างห้อง</h2>
 
-<section
-    id="home"
-    class="screen active"
->
+<p>ตั้งชื่อผู้เล่นและเลือกความยาก</p>
 
-    <div class="hero">
+<input id="hostName" placeholder="ชื่อผู้เล่น">
 
-        <div class="hero-icon">
-            🎮
-        </div>
+<select id="difficulty">
+    <option value="easy">ง่าย</option>
+    <option value="normal" selected>ปกติ</option>
+    <option value="hard">ยาก</option>
+    <option value="insane">โหดมาก</option>
+</select>
 
-        <h1>
-            MINI GAMES
-        </h1>
+<button class="btn green" onclick="createRoom()">
+    สร้างห้อง
+</button>
 
-        <p>
-            เกมสนุก ๆ สำหรับเล่นกับเพื่อน
-            <br>
-            สร้างห้องแล้วส่งรหัสให้เพื่อนได้เลย
-        </p>
-
-    </div>
-
-
-    <div class="game-grid">
-
-        <div class="game-card">
-
-            <div class="icon">
-                💣
-            </div>
-
-            <h2>
-                หลบระเบิด
-            </h2>
-
-            <p>
-                เปิดช่องที่ปลอดภัย
-                อย่าเปิดโดนระเบิด
-                ถ้าชนะจะไปด่านต่อไป
-            </p>
-
-            <button
-                class="primary"
-                onclick="openLobby('bomb')"
-            >
-                💣 เล่นหลบระเบิด
-            </button>
-
-        </div>
-
-
-        <div class="game-card">
-
-            <div class="icon">
-                🎲
-            </div>
-
-            <h2>
-                ทายอะไรก็ได้
-            </h2>
-
-            <p>
-                เกมจะสุ่มโจทย์เอง
-                ใครตอบถูกก่อนรับคะแนน
-            </p>
-
-            <button
-                class="primary"
-                onclick="openLobby('guess')"
-            >
-                🎲 เล่นทายเกม
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     LOBBY
-========================= -->
-
-<section
-    id="lobby"
-    class="screen"
->
-
-    <div class="panel">
-
-        <button
-            class="back"
-            onclick="goHome()"
-        >
-            ← กลับหน้าแรก
-        </button>
-
-        <div class="title">
-
-            <h2 id="lobbyTitle">
-                ห้องเกม
-            </h2>
-
-            <p>
-                สร้างห้องหรือเข้าห้องด้วยรหัส
-            </p>
-
-        </div>
-
-
-        <div class="lobby">
-
-            <input
-                id="nameInput"
-                class="input"
-                placeholder="ชื่อผู้เล่น"
-                maxlength="20"
-            >
-
-
-            <div class="two">
-
-                <button
-                    class="action"
-                    onclick="createRoom()"
-                >
-                    ➕ สร้างห้อง
-                </button>
-
-                <button
-                    class="action gray"
-                    onclick="joinRoom()"
-                >
-                    🚪 เข้าห้อง
-                </button>
-
-            </div>
-
-
-            <input
-                id="codeInput"
-                class="input"
-                placeholder="ใส่รหัสห้อง 6 หลัก"
-                maxlength="6"
-                style="margin-top:10px"
-            >
-
-
-            <div
-                id="roomArea"
-                style="display:none"
-            >
-
-                <div class="code-title">
-                    รหัสห้องของคุณ
-                </div>
-
-                <div
-                    id="roomCode"
-                    class="room-code"
-                >
-                    ------
-                </div>
-
-                <div
-                    id="roomStatus"
-                    class="room-status"
-                >
-                    รอผู้เล่น...
-                </div>
-
-
-                <div class="players">
-
-                    <h3>
-                        👥 ผู้เล่น
-                    </h3>
-
-                    <div
-                        id="players"
-                    ></div>
-
-                </div>
-
-
-                <div
-                    id="hostControls"
-                    class="host-controls"
-                >
-
-                    <h3>
-                        ⚙️ ตั้งค่าเกม
-                    </h3>
-
-                    <div
-                        class="difficulty"
-                        style="margin-top:10px"
-                    >
-
-                        <button
-                            class="diff active"
-                            data-level="easy"
-                            onclick="setDifficulty('easy')"
-                        >
-                            🟢 ง่าย
-                        </button>
-
-                        <button
-                            class="diff"
-                            data-level="normal"
-                            onclick="setDifficulty('normal')"
-                        >
-                            🟡 ปกติ
-                        </button>
-
-                        <button
-                            class="diff"
-                            data-level="hard"
-                            onclick="setDifficulty('hard')"
-                        >
-                            🔴 ยาก
-                        </button>
-
-                    </div>
-
-
-                    <button
-                        id="startButton"
-                        class="primary"
-                        onclick="startGame()"
-                    >
-                        🚀 เริ่มเกม
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     BOMB GAME
-========================= -->
-
-<section
-    id="bombGame"
-    class="screen"
->
-
-    <div class="panel">
-
-        <button
-            class="back"
-            onclick="goLobby()"
-        >
-            ← กลับห้อง
-        </button>
-
-        <div class="title">
-
-            <h2>
-                💣 หลบระเบิด
-            </h2>
-
-            <p id="bombDifficulty">
-                ความยาก: ง่าย
-            </p>
-
-        </div>
-
-
-        <div class="game-top">
-
-            <div class="stat">
-
-                <small>
-                    ด่าน
-                </small>
-
-                <strong
-                    id="stage"
-                    class="yellow"
-                >
-                    1
-                </strong>
-
-            </div>
-
-            <div class="stat">
-
-                <small>
-                    คะแนน
-                </small>
-
-                <strong
-                    id="score"
-                    class="green"
-                >
-                    0
-                </strong>
-
-            </div>
-
-            <div class="stat">
-
-                <small>
-                    ผู้เล่น
-                </small>
-
-                <strong
-                    id="count"
-                >
-                    1
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="bombMessage"
-            class="message"
-        >
-            เปิดช่องที่คิดว่าปลอดภัย
-        </div>
-
-
-        <div
-            id="board"
-            class="board"
-        ></div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     GUESS GAME
-========================= -->
-
-<section
-    id="guessGame"
-    class="screen"
->
-
-    <div class="panel">
-
-        <button
-            class="back"
-            onclick="goLobby()"
-        >
-            ← กลับห้อง
-        </button>
-
-        <div class="title">
-
-            <h2>
-                🎲 ทายอะไรก็ได้
-            </h2>
-
-            <p>
-                ใครตอบถูกก่อนรับคะแนน
-            </p>
-
-        </div>
-
-
-        <div class="guess">
-
-            <div
-                id="guessQuestion"
-                class="question"
-            >
-                กำลังเตรียมคำถาม...
-            </div>
-
-
-            <input
-                id="guessInput"
-                class="input"
-                placeholder="พิมพ์คำตอบ"
-            >
-
-
-            <button
-                class="primary"
-                onclick="answerGuess()"
-            >
-                🎯 ส่งคำตอบ
-            </button>
-
-
-            <div
-                id="feedback"
-                class="feedback"
-            ></div>
-
-        </div>
-
-
-        <div class="leaderboard">
-
-            <h3>
-                🏆 ตารางคะแนน
-            </h3>
-
-            <div
-                id="leaderboard"
-            ></div>
-
-        </div>
-
-    </div>
-
-</section>
+<button class="btn secondary" onclick="goHome()">
+    กลับ
+</button>
 
 </div>
+</div>
+</section>
+
+
+<!-- ================= JOIN ================= -->
+
+<section id="join" class="screen">
+
+<div class="container">
+
+<div class="card center">
+
+<h2>🔑 เข้าห้อง</h2>
+
+<input id="joinName" placeholder="ชื่อผู้เล่น">
+
+<input
+    id="roomInput"
+    placeholder="ใส่รหัสห้อง"
+    maxlength="6"
+>
+
+<button class="btn" onclick="joinRoom()">
+    เข้าห้อง
+</button>
+
+<button class="btn secondary" onclick="goHome()">
+    กลับ
+</button>
+
+<div id="joinMessage" class="message"></div>
+
+</div>
+</div>
+</section>
+
+
+<!-- ================= ROOM ================= -->
+
+<section id="room" class="screen">
+
+<div class="container">
+
+<div class="card center">
+
+<h2>🎮 ห้องเกม</h2>
+
+<p>รหัสห้อง</p>
+
+<div id="roomCode" class="room-code">------</div>
+
+<p>ส่งรหัสนี้ให้เพื่อน</p>
+
+<div class="players" id="players"></div>
+
+<div class="settings">
+
+<div>
+    <p>เกม</p>
+    <select id="gameMode">
+        <option value="bomb">💣 หลบระเบิด</option>
+        <option value="number">🔢 ทายหมายเลข</option>
+    </select>
+</div>
+
+<div>
+    <p>ความยาก</p>
+    <select id="roomDifficulty">
+        <option value="easy">ง่าย</option>
+        <option value="normal">ปกติ</option>
+        <option value="hard">ยาก</option>
+        <option value="insane">โหดมาก</option>
+    </select>
+</div>
+
+</div>
+
+<button class="btn green" onclick="startGame()">
+    ▶ เริ่มเกม
+</button>
+
+<button class="btn secondary" onclick="goHome()">
+    ออกจากห้อง
+</button>
+
+</div>
+</div>
+</section>
+
+
+<!-- ================= BOMB GAME ================= -->
+
+<section id="bombGame" class="screen">
+
+<div class="container">
+
+<div class="card">
+
+<div class="game-top">
+
+<div>
+    <h2>💣 หลบระเบิด</h2>
+    <div class="stage" id="stageText">ด่าน 1</div>
+</div>
+
+<div id="bombLives">❤️❤️❤️</div>
+
+</div>
+
+<p>
+เลือกช่องทีละช่อง<br>
+ระวัง... มีระเบิดซ่อนอยู่
+</p>
+
+<div id="bombGrid" class="bomb-grid"></div>
+
+<div id="bombMessage" class="message">
+    เลือกช่องเพื่อเริ่ม
+</div>
+
+<button class="btn secondary" onclick="backRoom()">
+    ออกจากเกม
+</button>
+
+</div>
+</div>
+</section>
+
+
+<!-- ================= NUMBER GAME ================= -->
+
+<section id="numberGame" class="screen">
+
+<div class="container">
+
+<div class="card">
+
+<div class="game-top">
+
+<div>
+    <h2>🔢 ทายหมายเลข</h2>
+    <div id="numberInfo">กำลังโหลด...</div>
+</div>
+
+<div id="numberLives">❤️❤️❤️</div>
+
+</div>
+
+<div class="number-area">
+
+<div class="range" id="numberRange"></div>
+
+<p>
+เกมเลือกหมายเลขให้เอง<br>
+ใครทายถูกก่อนเป็นผู้ชนะ
+</p>
+
+<div id="numberButtons" class="number-buttons"></div>
+
+<div id="numberMessage" class="message">
+    เลือกหมายเลข
+</div>
+
+</div>
+
+<button class="btn secondary" onclick="backRoom()">
+    ออกจากเกม
+</button>
+
+</div>
+</div>
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section id="result" class="screen">
+
+<div class="container">
+
+<div class="card center">
+
+<div class="result" id="resultText"></div>
+
+<button class="btn green" onclick="nextRound()">
+    ▶ เล่นต่อ
+</button>
+
+<button class="btn secondary" onclick="backRoom()">
+    🏠 กลับห้อง
+</button>
+
+</div>
+</div>
+</section>
 
 
 <script>
@@ -1215,49 +593,27 @@ header{
    STATE
 ===================================================== */
 
-let playerName =
-    localStorage.getItem(
-        "miniPlayerName"
-    ) ||
-    "Player" +
-    Math.floor(
-        Math.random()*9999
-    );
-
-let currentGame = "bomb";
-
 let room = null;
+
+let player = "";
 
 let isHost = false;
 
-let difficultyLevel = "easy";
-
 let stage = 1;
 
-let score = 0;
+let difficulty = "normal";
 
-let bombs = [];
+let bombCells = [];
 
-let opened = new Set();
+let openedCells = [];
 
-let guessAnswerValue = null;
+let lives = 3;
 
-let guessTimer = null;
+let targetNumber = 0;
 
+let numberMax = 10;
 
-/* =====================================================
-   INIT
-===================================================== */
-
-document.getElementById(
-    "nameInput"
-).value =
-    playerName;
-
-document.getElementById(
-    "userName"
-).textContent =
-    playerName;
+let numberLives = 3;
 
 
 /* =====================================================
@@ -1267,305 +623,224 @@ document.getElementById(
 function show(id){
 
     document
-        .querySelectorAll(".screen")
-        .forEach(
-            el =>
-                el.classList.remove(
-                    "active"
-                )
-        );
+    .querySelectorAll(".screen")
+    .forEach(s=>s.classList.remove("active"));
 
     document
-        .getElementById(id)
-        .classList.add(
-            "active"
-        );
+    .getElementById(id)
+    .classList.add("active");
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo(0,0);
 }
-
 
 function goHome(){
-
     show("home");
+}
 
+function showCreate(){
+    show("create");
+}
+
+function showJoin(){
+    show("join");
 }
 
 
-function goLobby(){
+/* =====================================================
+   ROOM CODE
+===================================================== */
 
-    show("lobby");
+function generateRoomCode(){
 
-    updateLobby();
-
-}
-
-
-function openLobby(game){
-
-    currentGame =
-        game;
-
-    const title =
-        game === "bomb"
-            ? "💣 ห้องเกมหลบระเบิด"
-            : "🎲 ห้องเกมทายอะไรก็ได้";
-
-    document.getElementById(
-        "lobbyTitle"
-    ).textContent =
-        title;
-
-    show("lobby");
+    return Math
+        .floor(100000 + Math.random()*900000)
+        .toString();
 
 }
 
 
 /* =====================================================
-   PLAYER NAME
+   CREATE ROOM
 ===================================================== */
-
-function saveName(){
-
-    const input =
-        document.getElementById(
-            "nameInput"
-        );
-
-    const value =
-        input.value.trim();
-
-    if(value){
-        playerName =
-            value;
-    }
-
-    localStorage.setItem(
-        "miniPlayerName",
-        playerName
-    );
-
-    document.getElementById(
-        "userName"
-    ).textContent =
-        playerName;
-}
-
-
-/* =====================================================
-   ROOM
-===================================================== */
-
-function generateCode(){
-
-    return String(
-        Math.floor(
-            100000 +
-            Math.random()*900000
-        )
-    );
-}
-
 
 function createRoom(){
 
-    saveName();
+    player =
+        document
+        .getElementById("hostName")
+        .value
+        .trim() || "ผู้เล่น 1";
 
-    const code =
-        generateCode();
+    difficulty =
+        document
+        .getElementById("difficulty")
+        .value;
 
     room = {
 
-        code,
+        code:generateRoomCode(),
 
-        host:playerName,
+        host:player,
 
-        difficulty:
-            "easy",
+        difficulty:difficulty,
 
-        players:[
-            {
-                name:playerName,
-                score:0
-            }
-        ]
+        players:[player]
 
     };
 
-    isHost = true;
-
-    difficultyLevel =
-        "easy";
+    isHost=true;
 
     localStorage.setItem(
-        "miniRoom",
+        "bombGameRoom",
         JSON.stringify(room)
     );
 
-    updateLobby();
+    openRoom();
 
-    alert(
-        "สร้างห้องสำเร็จ!\n\nรหัสห้อง: " +
-        code +
-        "\n\nส่งรหัสนี้ให้เพื่อนได้เลย"
-    );
 }
 
+
+/* =====================================================
+   JOIN ROOM
+===================================================== */
 
 function joinRoom(){
 
-    saveName();
-
-    const input =
-        document.getElementById(
-            "codeInput"
-        );
+    player =
+        document
+        .getElementById("joinName")
+        .value
+        .trim() || "ผู้เล่น";
 
     const code =
-        input.value.trim();
+        document
+        .getElementById("roomInput")
+        .value
+        .trim();
 
-    if(!/^\d{6}$/.test(code)){
+    let saved =
+        localStorage.getItem("bombGameRoom");
 
-        alert(
-            "กรุณาใส่รหัสห้อง 6 หลัก"
-        );
+    if(!saved){
+
+        document
+        .getElementById("joinMessage")
+        .textContent =
+        "❌ ไม่พบห้องนี้";
 
         return;
+
     }
 
+    let data =
+        JSON.parse(saved);
 
-    /*
-       เนื่องจากเป็นไฟล์เดียว
-       ระบบนี้จำลองการเข้าห้อง
-       บนเครื่องเดียวกัน
-    */
+    if(data.code !== code){
 
-    room = {
+        document
+        .getElementById("joinMessage")
+        .textContent =
+        "❌ รหัสห้องไม่ถูกต้อง";
 
-        code,
+        return;
 
-        host:"Host",
+    }
 
-        difficulty:"easy",
+    if(!data.players.includes(player)){
 
-        players:[
-            {
-                name:"Host",
-                score:0
-            },
-            {
-                name:playerName,
-                score:0
-            }
-        ]
+        data.players.push(player);
 
-    };
+    }
 
-    isHost =
-        false;
+    room=data;
 
-    updateLobby();
+    difficulty=data.difficulty;
 
-    alert(
-        "เข้าห้อง " +
-        code +
-        " สำเร็จ!"
+    isHost=false;
+
+    localStorage.setItem(
+        "bombGameRoom",
+        JSON.stringify(room)
     );
+
+    openRoom();
+
 }
 
 
-function updateLobby(){
+/* =====================================================
+   ROOM UI
+===================================================== */
 
-    if(!room){
+function openRoom(){
 
-        document.getElementById(
-            "roomArea"
-        ).style.display =
-            "none";
-
-        return;
-    }
-
-    document.getElementById(
-        "roomArea"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "roomCode"
-    ).textContent =
-        room.code;
-
-
-    document.getElementById(
-        "roomStatus"
-    ).textContent =
-        isHost
-            ? "👑 คุณเป็น Host"
-            : "🟢 คุณเข้าร่วมห้องแล้ว";
-
-
-    const players =
-        document.getElementById(
-            "players"
-        );
-
-
-    players.innerHTML =
-        room.players
-            .map(
-                (p,i) => `
-                    <div class="player ${
-                        p.name === room.host
-                            ? "host"
-                            : ""
-                    }">
-
-                        ${
-                            p.name === room.host
-                                ? "👑 "
-                                : "🟢 "
-                        }
-
-                        ${escapeHTML(p.name)}
-
-                        <span class="score">
-                            ${p.score} คะแนน
-                        </span>
-
-                    </div>
-                `
-            )
-            .join("");
-
-
-    document.getElementById(
-        "hostControls"
-    ).style.display =
-        isHost
-            ? "block"
-            : "none";
-
+    show("room");
 
     document
-        .querySelectorAll(
-            ".diff"
-        )
-        .forEach(
-            btn => {
+    .getElementById("roomCode")
+    .textContent=room.code;
 
-                btn.classList.toggle(
-                    "active",
-                    btn.dataset.level ===
-                    room.difficulty
-                );
+    document
+    .getElementById("roomDifficulty")
+    .value=room.difficulty;
 
-            }
-        );
+    renderPlayers();
+
+}
+
+
+function renderPlayers(){
+
+    const box =
+        document.getElementById("players");
+
+    box.innerHTML="";
+
+    room.players.forEach((name,i)=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className="player";
+
+        div.textContent =
+            (i===0 ? "👑 " : "👤 ") + name;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   START GAME
+===================================================== */
+
+function startGame(){
+
+    difficulty =
+        document
+        .getElementById("roomDifficulty")
+        .value;
+
+    const mode =
+        document
+        .getElementById("gameMode")
+        .value;
+
+    stage=1;
+
+    if(mode==="bomb"){
+
+        startBomb();
+
+    }else{
+
+        startNumber();
+
+    }
+
 }
 
 
@@ -1573,60 +848,28 @@ function updateLobby(){
    DIFFICULTY
 ===================================================== */
 
-function setDifficulty(level){
+function getBombCount(){
 
-    if(!isHost){
+    if(difficulty==="easy") return 2;
 
-        alert(
-            "เฉพาะ Host เท่านั้นที่เปลี่ยนความยากได้"
-        );
+    if(difficulty==="normal") return 4;
 
-        return;
-    }
+    if(difficulty==="hard") return 7;
 
-    room.difficulty =
-        level;
+    return 10;
 
-    difficultyLevel =
-        level;
-
-    updateLobby();
 }
 
+function getRequiredSafeCells(){
 
-/* =====================================================
-   START
-===================================================== */
+    if(difficulty==="easy") return 5;
 
-function startGame(){
+    if(difficulty==="normal") return 7;
 
-    if(!room){
+    if(difficulty==="hard") return 9;
 
-        alert(
-            "กรุณาสร้างห้องก่อน"
-        );
+    return 12;
 
-        return;
-    }
-
-    if(!isHost){
-
-        alert(
-            "เฉพาะ Host เท่านั้นที่เริ่มเกมได้"
-        );
-
-        return;
-    }
-
-    if(currentGame === "bomb"){
-
-        startBombGame();
-
-    }else{
-
-        startGuessGame();
-
-    }
 }
 
 
@@ -1634,587 +877,363 @@ function startGame(){
    BOMB GAME
 ===================================================== */
 
-function startBombGame(){
-
-    stage = 1;
-
-    score = 0;
-
-    startBombRound();
+function startBomb(){
 
     show("bombGame");
 
+    lives=3;
+
+    createBombStage();
+
 }
 
 
-function startBombRound(){
+function createBombStage(){
 
-    opened =
-        new Set();
+    openedCells=[];
 
-    bombs = [];
+    bombCells=[];
 
-    let bombCount;
+    const total=20;
 
-    if(
-        difficultyLevel === "easy"
-    ){
+    const bombCount =
+        Math.min(
+            getBombCount()+stage-1,
+            total-3
+        );
 
-        bombCount = 4;
+    while(bombCells.length<bombCount){
 
-    }else if(
-        difficultyLevel === "normal"
-    ){
+        const n =
+            Math.floor(Math.random()*total);
 
-        bombCount = 6;
+        if(!bombCells.includes(n)){
 
-    }else{
-
-        bombCount = 9;
-
-    }
-
-
-    while(
-        bombs.length <
-        bombCount
-    ){
-
-        const index =
-            Math.floor(
-                Math.random()*25
-            );
-
-        if(
-            !bombs.includes(index)
-        ){
-
-            bombs.push(index);
+            bombCells.push(n);
 
         }
 
     }
 
+    document
+    .getElementById("stageText")
+    .textContent =
+        "ด่าน "+stage;
 
-    renderBoard();
+    updateLives();
 
-    document.getElementById(
-        "stage"
-    ).textContent =
-        stage;
+    const grid =
+        document.getElementById("bombGrid");
 
-    document.getElementById(
-        "score"
-    ).textContent =
-        score;
+    grid.innerHTML="";
 
-    document.getElementById(
-        "count"
-    ).textContent =
-        room.players.length;
-
-    document.getElementById(
-        "bombDifficulty"
-    ).textContent =
-        "ความยาก: " +
-        difficultyText();
-
-    document.getElementById(
-        "bombMessage"
-    ).textContent =
-        "💣 ด่าน " +
-        stage +
-        " — หาให้เจอว่าช่องไหนปลอดภัย";
-}
-
-
-function difficultyText(){
-
-    if(
-        difficultyLevel === "easy"
-    ){
-        return "ง่าย";
-    }
-
-    if(
-        difficultyLevel === "normal"
-    ){
-        return "ปกติ";
-    }
-
-    return "ยาก";
-}
-
-
-function renderBoard(){
-
-    const board =
-        document.getElementById(
-            "board"
-        );
-
-    board.innerHTML = "";
-
-
-    for(
-        let i=0;
-        i<25;
-        i++
-    ){
+    for(let i=0;i<total;i++){
 
         const button =
-            document.createElement(
-                "button"
-            );
+            document.createElement("button");
 
-        button.className =
-            "cell";
+        button.className="cell";
 
-        button.textContent =
-            "❓";
+        button.textContent="❓";
 
-        button.onclick =
-            () => openCell(
-                i,
-                button
-            );
+        button.onclick=()=>openBombCell(i,button);
 
-        board.appendChild(
-            button
-        );
-
-    }
-}
-
-
-function openCell(
-    index,
-    button
-){
-
-    if(
-        opened.has(index)
-    ){
-
-        return;
+        grid.appendChild(button);
 
     }
 
-
-    opened.add(index);
-
-
-    if(
-        bombs.includes(index)
-    ){
-
-        button.classList.add(
-            "bomb"
-        );
-
-        button.textContent =
-            "💥";
-
-        revealBombs();
-
-        document.getElementById(
-            "bombMessage"
-        ).textContent =
-            "💥 BOOM! คุณโดนระเบิด!";
-
-
-        setTimeout(
-            () => {
-
-                alert(
-                    "💥 แพ้ด่าน " +
-                    stage +
-                    "!\nเริ่มด่านใหม่"
-                );
-
-                startBombRound();
-
-            },
-            700
-        );
-
-        return;
-    }
-
-
-    button.classList.add(
-        "safe"
-    );
-
-    button.textContent =
-        "✓";
-
-    score += 10;
-
-    document.getElementById(
-        "score"
-    ).textContent =
-        score;
-
-
-    const safeCells =
-        25 - bombs.length;
-
-
-    if(
-        opened.size -
-        bombs.filter(
-            b =>
-                opened.has(b)
-        ).length
-        >= safeCells
-    ){
-
-        stage++;
-
-        score += 50;
-
-        document.getElementById(
-            "bombMessage"
-        ).textContent =
-            "🎉 ผ่านด่าน!";
-
-        setTimeout(
-            () => {
-
-                alert(
-                    "🎉 ผ่านด่านแล้ว!\n" +
-                    "กำลังเข้าสู่ด่าน " +
-                    stage
-                );
-
-                startBombRound();
-
-            },
-            600
-        );
-
-    }
+    document
+    .getElementById("bombMessage")
+    .textContent =
+    "ด่าน "+stage+" — หาให้ครบโดยไม่โดนระเบิด";
 
 }
 
 
-function revealBombs(){
+function openBombCell(index,button){
 
-    const cells =
-        document.querySelectorAll(
-            ".cell"
-        );
+    if(
+        openedCells.includes(index)
+    ) return;
 
-    bombs.forEach(
-        index => {
+    openedCells.push(index);
 
-            if(
-                cells[index]
-            ){
+    if(bombCells.includes(index)){
 
-                cells[index]
-                    .classList.add(
-                        "bomb"
-                    );
+        button.classList.add("boom");
 
-                cells[index]
-                    .textContent =
-                    "💣";
+        button.textContent="💥";
 
-            }
+        lives--;
+
+        updateLives();
+
+        document
+        .getElementById("bombMessage")
+        .textContent =
+        "💥 โดนระเบิด!";
+
+        if(lives<=0){
+
+            setTimeout(()=>{
+
+                resultLoseBomb();
+
+            },500);
 
         }
-    );
+
+        return;
+
+    }
+
+    button.classList.add("safe");
+
+    button.textContent="✓";
+
+    const safe =
+        openedCells.filter(
+            x=>!bombCells.includes(x)
+        ).length;
+
+    const required =
+        Math.min(
+            getRequiredSafeCells()+stage-1,
+            20-bombCells.length
+        );
+
+    document
+    .getElementById("bombMessage")
+    .textContent =
+    `ปลอดภัย ${safe}/${required}`;
+
+    if(safe>=required){
+
+        setTimeout(()=>{
+
+            resultWinBomb();
+
+        },500);
+
+    }
+
+}
+
+
+function updateLives(){
+
+    document
+    .getElementById("bombLives")
+    .textContent =
+    "❤️".repeat(lives) +
+    "🖤".repeat(3-lives);
+
+}
+
+
+function resultLoseBomb(){
+
+    show("result");
+
+    document
+    .getElementById("resultText")
+    .innerHTML=`
+        <div class="warning">💥 BOOM!</div>
+        <h2>คุณแพ้ในด่าน ${stage}</h2>
+        <p>ระเบิดทำงานหมดแล้ว<br>ต้องเริ่มด่านใหม่</p>
+    `;
+
+}
+
+
+function resultWinBomb(){
+
+    show("result");
+
+    document
+    .getElementById("resultText")
+    .innerHTML=`
+        <div class="success">🎉 SAFE!</div>
+        <h2>ผ่านด่าน ${stage}</h2>
+        <p>คุณหลบระเบิดได้สำเร็จ</p>
+    `;
 
 }
 
 
 /* =====================================================
-   GUESS GAME
+   NUMBER GAME
 ===================================================== */
 
-function startGuessGame(){
+function startNumber(){
 
-    show("guessGame");
+    show("numberGame");
 
-    generateQuestion();
+    numberLives=3;
 
-    updateLeaderboard();
+    if(difficulty==="easy"){
 
-}
+        numberMax=5;
 
+    }else if(difficulty==="normal"){
 
-function generateQuestion(){
+        numberMax=10;
 
-    const mode =
-        Math.floor(
-            Math.random()*4
-        );
+    }else if(difficulty==="hard"){
 
-
-    /*
-       0 = number
-    */
-
-    if(mode === 0){
-
-        let max = 20;
-
-        if(
-            difficultyLevel === "normal"
-        ){
-            max = 50;
-        }
-
-        if(
-            difficultyLevel === "hard"
-        ){
-            max = 100;
-        }
-
-
-        guessAnswerValue =
-            Math.floor(
-                Math.random()*max
-            ) + 1;
-
-
-        document.getElementById(
-            "guessQuestion"
-        ).textContent =
-            "🎯 ทายตัวเลข 1-" +
-            max;
-
-    }
-
-
-    /*
-       1 = math
-    */
-
-    else if(mode === 1){
-
-        let max = 10;
-
-        if(
-            difficultyLevel === "normal"
-        ){
-            max = 30;
-        }
-
-        if(
-            difficultyLevel === "hard"
-        ){
-            max = 100;
-        }
-
-
-        const a =
-            Math.floor(
-                Math.random()*max
-            )+1;
-
-        const b =
-            Math.floor(
-                Math.random()*max
-            )+1;
-
-
-        const operators =
-            ["+","-","×"];
-
-
-        const op =
-            operators[
-                Math.floor(
-                    Math.random()*
-                    operators.length
-                )
-            ];
-
-
-        if(op === "+"){
-
-            guessAnswerValue =
-                a+b;
-
-        }else if(
-            op === "-"
-        ){
-
-            guessAnswerValue =
-                a-b;
-
-        }else{
-
-            guessAnswerValue =
-                a*b;
-
-        }
-
-
-        document.getElementById(
-            "guessQuestion"
-        ).textContent =
-            `🧠 ${a} ${op} ${b} = ?`;
-
-    }
-
-
-    /*
-       2 = color
-    */
-
-    else if(mode === 2){
-
-        const colors = [
-            "แดง",
-            "น้ำเงิน",
-            "เขียว",
-            "เหลือง",
-            "ม่วง"
-        ];
-
-
-        guessAnswerValue =
-            colors[
-                Math.floor(
-                    Math.random()*
-                    colors.length
-                )
-            ];
-
-
-        document.getElementById(
-            "guessQuestion"
-        ).textContent =
-            "🎨 ทายสี: แดง / น้ำเงิน / เขียว / เหลือง / ม่วง";
-
-    }
-
-
-    /*
-       3 = word
-    */
-
-    else{
-
-        const words = [
-            ["เมืองหลวงของไทยคืออะไร?","กรุงเทพ"],
-            ["ดาวเคราะห์ที่เราอาศัยอยู่คืออะไร?","โลก"],
-            ["สัตว์อะไรมีงวง?","ช้าง"],
-            ["สีที่ได้จากแดง + เหลือง?","ส้ม"]
-        ];
-
-
-        const item =
-            words[
-                Math.floor(
-                    Math.random()*
-                    words.length
-                )
-            ];
-
-
-        guessAnswerValue =
-            item[1];
-
-
-        document.getElementById(
-            "guessQuestion"
-        ).textContent =
-            "❓ " +
-            item[0];
-
-    }
-
-
-    document.getElementById(
-        "guessInput"
-    ).value = "";
-
-    document.getElementById(
-        "feedback"
-    ).textContent =
-        "";
-}
-
-
-function answerGuess(){
-
-    const input =
-        document.getElementById(
-            "guessInput"
-        ).value
-        .trim()
-        .toLowerCase();
-
-
-    if(!input){
-
-        return;
-
-    }
-
-
-    if(
-        input ===
-        String(
-            guessAnswerValue
-        )
-        .toLowerCase()
-    ){
-
-        score += 100;
-
-
-        /*
-           เพิ่มคะแนนให้ตัวเอง
-        */
-
-        const me =
-            room.players.find(
-                p =>
-                    p.name ===
-                    playerName
-            );
-
-
-        if(me){
-
-            me.score =
-                score;
-
-        }
-
-
-        document.getElementById(
-            "feedback"
-        ).textContent =
-            "🎉 ถูกต้อง! +100 คะแนน";
-
-
-        updateLeaderboard();
-
-
-        clearTimeout(
-            guessTimer
-        );
-
-
-        guessTimer =
-            setTimeout(
-                generateQuestion,
-                1000
-            );
+        numberMax=25;
 
     }else{
 
-        document.getElementById(
-            "feedback"
-        ).textContent =
-            "❌ ยังไม่ถูก ลองใหม่!";
+        numberMax=50;
+
+    }
+
+    targetNumber =
+        Math.floor(
+            Math.random()*numberMax
+        )+1;
+
+    document
+    .getElementById("numberRange")
+    .textContent =
+    `หมายเลข 1 - ${numberMax}`;
+
+    document
+    .getElementById("numberInfo")
+    .textContent =
+    "หาหมายเลขที่เกมเลือก";
+
+    updateNumberLives();
+
+    const box =
+        document.getElementById("numberButtons");
+
+    box.innerHTML="";
+
+    for(let i=1;i<=numberMax;i++){
+
+        const btn =
+            document.createElement("button");
+
+        btn.className="num";
+
+        btn.textContent=i;
+
+        btn.onclick=()=>guessNumber(i);
+
+        box.appendChild(btn);
+
+    }
+
+}
+
+
+function guessNumber(number){
+
+    if(number===targetNumber){
+
+        document
+        .getElementById("numberMessage")
+        .innerHTML =
+        `<span class="success">
+        🎯 ถูกต้อง! หมายเลขคือ ${targetNumber}
+        </span>`;
+
+        setTimeout(()=>{
+
+            show("result");
+
+            document
+            .getElementById("resultText")
+            .innerHTML=`
+                <div class="success">🏆 ชนะ!</div>
+                <h2>ทายถูกแล้ว</h2>
+                <p>หมายเลขที่เกมเลือกคือ
+                <b>${targetNumber}</b></p>
+            `;
+
+        },600);
+
+        return;
+
+    }
+
+    numberLives--;
+
+    updateNumberLives();
+
+    if(numberLives<=0){
+
+        setTimeout(()=>{
+
+            show("result");
+
+            document
+            .getElementById("resultText")
+            .innerHTML=`
+                <div class="warning">❌ แพ้</div>
+                <h2>หมดโอกาส</h2>
+                <p>หมายเลขที่ถูกคือ
+                <b>${targetNumber}</b></p>
+            `;
+
+        },400);
+
+        return;
+
+    }
+
+    if(number<targetNumber){
+
+        document
+        .getElementById("numberMessage")
+        .textContent =
+        `ต่ำเกินไป! เหลือ ${numberLives} ครั้ง`;
+
+    }else{
+
+        document
+        .getElementById("numberMessage")
+        .textContent =
+        `สูงเกินไป! เหลือ ${numberLives} ครั้ง`;
+
+    }
+
+}
+
+
+function updateNumberLives(){
+
+    document
+    .getElementById("numberLives")
+    .textContent =
+    "❤️".repeat(numberLives)+
+    "🖤".repeat(3-numberLives);
+
+}
+
+
+/* =====================================================
+   NEXT ROUND
+===================================================== */
+
+function nextRound(){
+
+    stage++;
+
+    const mode =
+        document
+        .getElementById("gameMode")
+        .value;
+
+    if(mode==="bomb"){
+
+        startBomb();
+
+    }else{
+
+        startNumber();
 
     }
 
@@ -2222,67 +1241,12 @@ function answerGuess(){
 
 
 /* =====================================================
-   LEADERBOARD
+   BACK ROOM
 ===================================================== */
 
-function updateLeaderboard(){
+function backRoom(){
 
-    if(!room){
-
-        return;
-
-    }
-
-
-    const board =
-        document.getElementById(
-            "leaderboard"
-        );
-
-
-    const sorted =
-        [...room.players]
-        .sort(
-            (a,b) =>
-                b.score -
-                a.score
-        );
-
-
-    board.innerHTML =
-        sorted
-        .map(
-            (p,i) => {
-
-                let medal =
-                    "🏅";
-
-                if(i === 0){
-                    medal = "🥇";
-                }
-
-                if(i === 1){
-                    medal = "🥈";
-                }
-
-                if(i === 2){
-                    medal = "🥉";
-                }
-
-
-                return `
-                    <div class="rank">
-                        ${medal}
-                        ${escapeHTML(p.name)}
-                        <span style="float:right">
-                            ${p.score} คะแนน
-                        </span>
-                    </div>
-                `;
-
-            }
-        )
-        .join("");
+    openRoom();
 
 }
 
@@ -2291,59 +1255,56 @@ function updateLeaderboard(){
    KEYBOARD
 ===================================================== */
 
-document
-    .getElementById(
-        "guessInput"
-    )
-    .addEventListener(
-        "keydown",
-        event => {
+document.addEventListener(
+"keydown",
+e=>{
+
+    if(e.key==="Escape"){
+
+        backRoom();
+
+    }
+
+}
+);
+
+
+/* =====================================================
+   AUTO ROOM REFRESH
+===================================================== */
+
+setInterval(()=>{
+
+    if(!room) return;
+
+    const saved =
+        localStorage.getItem("bombGameRoom");
+
+    if(!saved) return;
+
+    try{
+
+        const data=JSON.parse(saved);
+
+        if(data.code===room.code){
+
+            room=data;
 
             if(
-                event.key === "Enter"
+                document
+                .getElementById("room")
+                .classList.contains("active")
             ){
 
-                answerGuess();
+                renderPlayers();
 
             }
 
         }
-    );
 
+    }catch(e){}
 
-/* =====================================================
-   SECURITY
-===================================================== */
-
-function escapeHTML(text){
-
-    return String(text)
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-}
+},1000);
 
 </script>
 
